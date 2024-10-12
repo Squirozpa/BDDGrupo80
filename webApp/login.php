@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = "SELECT * FROM users WHERE email = $1 AND password = $2";
     $result = pg_query_params($db, $query, array($email, $password));
 
-    echo 'Still here';
     if (pg_num_rows($result) > 0) {
         // Credenciales correctas
         echo "Login successful!";
