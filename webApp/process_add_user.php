@@ -22,7 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result) {
             echo "<script>alert('User added successfully.'); window.location.href='add_user_interface.html';</script>";
         } else {
-            echo "<script>alert('Error adding user.'); window.location.href='add_user_interface.html';</script>";
+            $error_message = pg_last_error($db);
+            echo "<script>alert('Error adding user: $error_message'); window.location.href='add_user_interface.html';</script>";
+            exit;
         }
     }
 }
