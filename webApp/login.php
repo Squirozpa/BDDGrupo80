@@ -2,7 +2,8 @@
 // Conexión a la base de datos
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
-if ($_SERVER['REQUEST_METHOD'] == 'post') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    echo 'base';
     // Capturar datos del formulario
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -18,10 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'post') {
         // Credenciales incorrectas
         echo "Invalid email or password.";
     }
-    if (!$db) {
-        die("Error en la conexión a la base de datos: " . pg_last_error());
-    }
-    echo pg_last_error();
 }
 echo 'werk';
 ?>
