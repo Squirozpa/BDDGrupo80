@@ -2,7 +2,7 @@
 // Conexión a la base de datos
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'post') {
     // Capturar datos del formulario
     $email = $_POST['email'];
     $password = $_POST['password'];
