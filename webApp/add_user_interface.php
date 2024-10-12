@@ -16,5 +16,7 @@
         <br>
         <input type="submit" value="Add User">
     </form>
+    <br>
+    <button onclick="window.location.href='login.html'">Volver a Inivio de sesion</button>
 </body>
 </html>

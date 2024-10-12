@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (pg_num_rows($result) > 0) {
         // Credenciales correctas, redirigir al menú principal
-        header("Location: menu_principal.php");
+        header("Location: menu_principal.html");
         exit();
     } else {
         // Credenciales incorrectas, mostrar alerta
