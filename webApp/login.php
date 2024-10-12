@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificar si el usuario es "bananer@lamejor.com" con clave "bananer0"
     if ($email === 'bananer@lamejor.com' && $password === 'bananer0') {
         // Redirigir a la interfaz de añadir usuarios
-        header("Location: add_user_interface.php");
+        header("Location: add_user_interface.html");
         exit();
     }
 
