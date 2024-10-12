@@ -19,17 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $check_result = pg_query_params($db, $check_query, array($email));
 
     if (pg_num_rows($check_result) > 0) {
-        echo "<script>alert('El usuario ya existe.'); window.location.href='add_user_interface.html';</script>";
+        echo "<script>alert('El usuario ya existe.'); window.location.href='../views/add_user_interface.html';</script>";
     } else {
         // Insertar el nuevo usuario en la base de datos
         $query = "INSERT INTO users (email, password) VALUES ($1, $2)";
         $result = pg_query_params($db, $query, array($email, $password));
 
         if ($result) {
-            echo "<script>alert('Usuario creado.'); window.location.href='add_user_interface.html';</script>";
+            echo "<script>alert('Usuario creado.'); window.location.href='../views/add_user_interface.html';</script>";
         } else {
             $error_message = pg_last_error($db);
-            echo "<script>alert('Error al crear usuario: $error_message'); window.location.href='add_user_interface.html';</script>";
+            echo "<script>alert('Error al crear usuario: $error_message'); window.location.href='../views/add_user_interface.html';</script>";
             exit;
         }
     }
