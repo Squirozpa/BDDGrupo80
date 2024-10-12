@@ -3,10 +3,10 @@
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    echo 'base';
     // Capturar datos del formulario
     $email = $_POST['email'];
     $password = $_POST['password'];
+    echo $email . $password;
 
     // Consulta para verificar las credenciales
     $query = "SELECT * FROM users WHERE email = $email AND password = $password";
