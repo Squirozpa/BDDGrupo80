@@ -15,6 +15,7 @@ $query = "CREATE TABLE IF NOT EXISTS usuarios (
 $result = pg_query($db, $query);
 $query = "INSERT INTO usuarios (email, clave) VALUES ('usuario1@ing.puc.cl', 'abcd1234'), 
                                                       ('usuario2@ing.puc.cl', 'efgh5678')";
+$result = pg_query($db, $query);
 
 if ($result) {
     echo "Datos insertados correctamente en la tabla 'usuarios'.";
