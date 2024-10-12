@@ -18,5 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Credenciales incorrectas
         echo "Invalid email or password.";
     }
+    if (!$db) {
+        die("Error en la conexión a la base de datos: " . pg_last_error());
+    }
+    echo pg_last_error();
 }
 ?>
