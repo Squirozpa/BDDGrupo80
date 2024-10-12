@@ -23,4 +23,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     echo pg_last_error();
 }
+echo 'werk';
 ?>
