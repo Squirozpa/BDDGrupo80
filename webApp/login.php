@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Consulta para verificar las credenciales
-    $query = "SELECT * FROM users WHERE email = $1 AND password = $2";
+    $query = "SELECT * FROM usuarios WHERE email = $1 AND password = $2";
     $result = pg_query_params($db, $query, array($email, $password));
     if (!$db) {
         die("Error en la conexión a la base de datos.");
