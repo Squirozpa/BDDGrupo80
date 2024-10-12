@@ -8,6 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // Validar que la contraseña tenga exactamente 8 caracteres alfanuméricos
+    if (!preg_match('/^[a-zA-Z0-9]{8}$/', $password)) {
+        echo "<script>alert('Password must be exactly 8 alphanumeric characters.'); window.location.href='add_user_interface.html';</script>";
+        exit;
+    }
+
     // Verificar si el usuario ya existe
     $check_query = "SELECT * FROM users WHERE email = $1";
     $check_result = pg_query_params($db, $check_query, array($email));
