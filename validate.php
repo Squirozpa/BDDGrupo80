@@ -1,19 +1,25 @@
 <?php
-// Datos de ejemplo (en la práctica, estos datos vendrían de una base de datos)
-$valid_email = "usuario@institucion.cl";
-$valid_password = "12345678";
+// Conexión a la base de datos
+$db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
-// Obtener los datos del formulario
+if (!$db) {
+    echo "Error: No se pudo conectar a la base de datos.\n";
+    exit;
+}
+
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// Validar email y clave
-if ($email === $valid_email && $password === $valid_password) {
+$query = "SELECT * FROM usuarios WHERE email = $email AND clave = $password";
+$result = pg_query_params($db, $query, array($email, $password));
+
+if (pg_num_rows($result) > 0) {
     echo "Acceso concedido. Bienvenido al sistema.";
-    // Aquí redireccionarías o mostrarías el menú de opciones
-    // header("Location: menu.php");
+    header("Location: menu.php");
 } else {
     echo "ID o clave incorrectos. Intenta nuevamente.";
-    // Podrías agregar un enlace para volver al formulario de login
+    echo '<a href="index.php">Volver a intentar</a>';
 }
+
+pg_close($db);
 ?>
