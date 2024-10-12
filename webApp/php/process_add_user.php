@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validar que la contraseña tenga exactamente 8 caracteres alfanuméricos
     if (!preg_match('/^[a-zA-Z0-9]{8}$/', $password)) {
-        echo "<script>alert('La contraseña deben ser 8 alfanumericos.'); window.location.href='add_user_interface.html';</script>";
+        echo "<script>alert('La contraseña deben ser 8 alfanumericos.'); window.location.href='../viewsadd_user_interface.html';</script>";
         exit;
     }
 
