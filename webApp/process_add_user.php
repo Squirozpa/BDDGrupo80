@@ -10,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = pg_query_params($db, $query, array($email, $password));
 
     if ($result) {
-        echo "<script>alert('User added successfully.'); window.location.href='add_user_interface.php';</script>";
+        echo "<script>alert('User added successfully.'); window.location.href='add_user_interface.html';</script>";
     } else {
-        echo "<script>alert('Error adding user.'); window.location.href='add_user_interface.php';</script>";
+        echo "<script>alert('Error adding user.'); window.location.href='add_user_interface.html';</script>";
     }
 }
 ?>
