@@ -6,12 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Capturar datos del formulario
     $email = $_POST['email'];
     $password = $_POST['password'];
-    echo $email . $password;
 
     // Consulta para verificar las credenciales
-    $query = "SELECT * FROM users WHERE email = $email AND password = $password";
+    $query = "SELECT * FROM users WHERE email = $1 AND password = $2";
     $result = pg_query_params($db, $query, array($email, $password));
 
+    echo 'Still here';
     if (pg_num_rows($result) > 0) {
         // Credenciales correctas
         echo "Login successful!";
@@ -20,5 +20,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Invalid email or password.";
     }
 }
-echo 'werk';
 ?>
