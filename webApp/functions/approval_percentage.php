@@ -7,7 +7,7 @@ function getPeriods() {
     $result = pg_query($db, "SELECT DISTINCT periodo_asignatura FROM notas ORDER BY periodo_asignatura");
     $periods = [];
     while ($row = pg_fetch_assoc($result)) {
-        $periods[] = $row['period'];
+        $periods[] = $row['periodo_asignatura'];
     }
     return $periods;
 }
