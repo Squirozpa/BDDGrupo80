@@ -51,13 +51,23 @@ function generateReport($period) {
 $periods = getPeriods();
 
 
-echo '<label for="period">Seleccione un periodo:</label>';
-echo '<select name="period" id="period">';
-foreach ($periods as $period) {
-    echo "<option value=\"$period\">$period</option>";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['period'])) {
+        $selectedPeriod = $_POST['period'];
+        generateReport($selectedPeriod);
+    } else {
+        echo "Por favor, seleccione un periodo.";
+    }
+} else {
+    echo '<form method="POST">';
+    echo '<label for="period">Seleccione un periodo:</label>';
+    echo '<select name="period" id="period">';
+    foreach ($periods as $period) {
+        echo "<option value=\"$period\">$period</option>";
+    }
+    echo '</select>';
+    echo '<input type="submit" value="Generar Reporte">';
+    echo '</form>';
 }
-echo '</select>';
-echo '<input type="submit" value="Generar Reporte">';
-echo '</form>';
 
 ?>
