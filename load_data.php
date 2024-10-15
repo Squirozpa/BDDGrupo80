@@ -120,5 +120,116 @@ foreach(array_slice($unclean_planes,1,-1) as $data)
         "inicio" => $data[8],
     );
 
-print_r($clean_planes);
+$filename = 'E2_asignaturas.csv';
+
+if (($handle = fopen($filename, 'r')) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $unclean_asignaturas[] = $data;
+    }
+    fclose($handle);
+} else {
+    echo "Error al abrir el archivo CSV.";
+}
+
+foreach($unclean_asignaturas as $data)
+    $clean_asignaturas[] = array(
+        "plan" => $data[0],
+        "codigo" => $data[1],
+        "asignatura" => $data[2],
+        "nivel" => $data[3],
+    );
+
+$filename = 'E2_estudiantes.csv';
+
+if (($handle = fopen($filename, 'r')) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $unclean_alumnos[] = $data;
+    }
+    fclose($handle);
+} else {
+    echo "Error al abrir el archivo CSV.";
+}
+
+foreach($unclean_alumnos as $data)
+    $clean_alumnos[] = array(
+        "codigo_plan" => $data[0],
+        "carrera" => $data[1],
+        "cohorte" => $data[2],
+        "numero_alumno" => $data[3],
+        "bloqueo" => $data[4],
+        "causal_bloqueo" => $data[5],
+        "run" => $data[6],
+        "dv" => $data[7],
+        "nombre" => $data[8]." ".$data[9]." ".$data[10]." ".$data[11],
+        "logro" => $data[12],
+        "fecha_logro" => $data[13],
+        "ultima_carga" => $data[14],
+    );
+
+$filename = "E2_planeacion.csv";
+if (($handle = fopen($filename, 'r')) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $unclean_planeacion[] = $data;
+    }
+    fclose($handle);
+} else {
+    echo "Error al abrir el archivo CSV.";
+}
+
+foreach($unclean_planeacion as $data)
+    $clean_planeacion[] = array(
+        "periodo" => $data[0],
+        "sede" => $data[1],
+        "facultad" => $data[2],
+        "codigo_departamento" => $data[3],
+        "departamento" => $data[4],
+        "asignatura" => $data[5],
+        "seccion" => $data[6],
+        "duración" => $data[7],
+        "jornada" => $data[8],
+        "cupo" => $data[9],
+        "inscritos" => $data[10],
+        "dia" => $data[11],
+        "hora_inicio" => $data[12],
+        "hora_termino" => $data[13],
+        "fecha_inicio" => $data[14],
+        "fecha_termino" => $data[15],
+        "lugar" => $data[16],
+        "edificio" => $data[17],
+        "profesor_principal" => $data[18],
+        "run" => $data[19],
+        "nombre_profesor" => $data[20]." ".$data[21]." ".$data[22],
+        "jerarquizacion" => $data[23],
+    );
+
+$filename = "E2_docentes.csv";
+
+if (($handle = fopen($filename, 'r')) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $unclean_docentes[] = $data;
+    }
+    fclose($handle);
+} else {
+    echo "Error al abrir el archivo CSV.";
+}
+
+foreach($unclean_docentes as $data)
+    $clean_docentes[] = array(
+        "run" => $data[0],
+        "nombre" => $data[1]." ".$data[2],
+        "telefono" => $data[3],
+        "email_personal" => $data[4],
+        "email_institucional" => $data[5],
+        "dedicacion" => $data[6],
+        "contrato" => $data[7],
+        "diurno" => $data[8],
+        "vespertino" => $data[9],
+        "sede" => $data[10],
+        "carrera" => $data[11],
+        "grado" => $data[12],
+        "jeraquia" => $data[13],
+        "cargo" => $data[14],
+        "estamento" => $data[15],
+    );
+
 ?>
