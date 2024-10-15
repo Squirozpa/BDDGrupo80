@@ -14,9 +14,37 @@ function getPeriods() {
 
 function generateReport($period) {
     global $db;
-    $result = pg_query_params($db, "SELECT * FROM your_table WHERE period = $1", array($period));
-    echo 'Aqui se genera el reporte';
-    // Aquí va la lógica para generar el informe basado en el periodo seleccionado
+    $query = "
+        SELECT 
+            codigo_asignatura, 
+            asignatura, 
+            COUNT(*) AS total_estudiantes,
+            SUM(CASE WHEN nota >= 4.0 THEN 1 ELSE 0 END) AS total_aprobados,
+            ROUND(SUM(CASE WHEN nota >= 4.0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS porcentaje_aprobacion
+        FROM 
+            notas
+        WHERE 
+            periodo_asignatura = $1
+        GROUP BY 
+            codigo_asignatura, asignatura
+        ORDER BY 
+            codigo_asignatura
+    ";
+    $result = pg_query_params($db, $query, array($period));
+
+    echo "<h2>Reporte de Aprobación para el periodo: $period</h2>";
+    echo "<table border='1'>";
+    echo "<tr><th>Código Asignatura</th><th>Asignatura</th><th>Total Estudiantes</th><th>Total Aprobados</th><th>Porcentaje de Aprobación</th></tr>";
+    while ($row = pg_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>{$row['codigo_asignatura']}</td>";
+        echo "<td>{$row['asignatura']}</td>";
+        echo "<td>{$row['total_estudiantes']}</td>";
+        echo "<td>{$row['total_aprobados']}</td>";
+        echo "<td>{$row['porcentaje_aprobacion']}%</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 }
 
 
