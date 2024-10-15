@@ -15,6 +15,7 @@ function getPeriods() {
 function generateReport($period) {
     global $db;
     $result = pg_query_params($db, "SELECT * FROM your_table WHERE period = $1", array($period));
+    echo 'Aqui se genera el reporte';
     // Aquí va la lógica para generar el informe basado en el periodo seleccionado
 }
 
