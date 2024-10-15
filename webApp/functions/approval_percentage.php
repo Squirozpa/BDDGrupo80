@@ -4,7 +4,7 @@ $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=
 
 function getPeriods() {
     global $db;
-    $result = pg_query($db, "SELECT DISTINCT periodo_asignatura FROM Notas ORDER BY periodo_asignatura");
+    $result = pg_query($db, "SELECT DISTINCT periodo_asignatura FROM notas ORDER BY periodo_asignatura");
     $periods = [];
     while ($row = pg_fetch_assoc($result)) {
         $periods[] = $row['period'];
