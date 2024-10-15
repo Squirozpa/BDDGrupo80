@@ -4,7 +4,7 @@ $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=
 
 function getPeriods() {
     global $db;
-    $result = pg_query($db, "SELECT DISTINCT periodo asignatura FROM Notas ORDER BY periodo");
+    $result = pg_query($db, "SELECT DISTINCT periodo_asignatura FROM Notas ORDER BY periodo_asignatura");
     $periods = [];
     while ($row = pg_fetch_assoc($result)) {
         $periods[] = $row['period'];
@@ -22,7 +22,6 @@ function generateReport($period) {
 $periods = getPeriods();
 
 
-echo '<form method="POST">';
 echo '<label for="period">Seleccione un periodo:</label>';
 echo '<select name="period" id="period">';
 foreach ($periods as $period) {
