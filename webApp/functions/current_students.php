@@ -31,9 +31,7 @@ if (!$db) {
 
 $query = "
 SELECT 
-    e.numero_alumno,
-    e.cohorte,
-    e.ultimo_logro
+   *
 FROM 
     estudiantes e
 WHERE 
