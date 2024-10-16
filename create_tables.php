@@ -59,7 +59,7 @@ if ($db) {
             sede VARCHAR(100),
             grado VARCHAR(50),
             modalidad VARCHAR(50),
-            inicio_vigencia VARCHAR(50),
+            inicio_vigencia VARCHAR(50)
         )",
 
         "CREATE TABLE planeacion (
