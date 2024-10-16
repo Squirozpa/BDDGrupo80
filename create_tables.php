@@ -15,13 +15,23 @@ if ($db) {
             Correo VARCHAR(100)
         )",
         
-        "CREATE TABLE Estudiante (
+        "CREATE TABLE estudiantes (
             id_estudiante SERIAL PRIMARY KEY,
-            id_persona INT REFERENCES Persona(id_persona),
-            numero_estudiante VARCHAR(20),
+            codigo_plan VARCHAR(20),
+            carrera VARCHAR(100),
             cohorte VARCHAR(10),
-            estado VARCHAR(20)
-        )",
+            numero_alumno VARCHAR(20),
+            bloqueo BOOLEAN,
+            causal_bloqueo VARCHAR(255),
+            run VARCHAR(20),
+            dv CHAR(1),
+            nombres VARCHAR(100),
+            primer_apellido VARCHAR(100),
+            segundo_apellido VARCHAR(100),
+            logro VARCHAR(50),
+            fecha_logro DATE,
+            ultima_carga DATE
+        );",
         
         "CREATE TABLE docentes (
             id_docente SERIAL PRIMARY KEY,
@@ -73,7 +83,7 @@ if ($db) {
         
         "CREATE TABLE Inscripcion (
             id_inscripcion SERIAL PRIMARY KEY,
-            id_estudiante INT REFERENCES Estudiante(id_estudiante),
+            id_estudiante INT REFERENCES estudiantes(id_estudiante),
             id_curso INT REFERENCES Curso(id_curso),
             fecha_inscripcion DATE
         )",
@@ -87,7 +97,7 @@ if ($db) {
         
         "CREATE TABLE Notas (
             id_nota SERIAL PRIMARY KEY,
-            id_estudiante INT REFERENCES Estudiante(id_estudiante),
+            id_estudiante INT REFERENCES estudiantes(id_estudiante),
             id_curso INT REFERENCES Curso(id_curso),
             nota NUMERIC(3, 1),
             calificacion VARCHAR(20),
