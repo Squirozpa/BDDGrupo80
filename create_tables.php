@@ -1,11 +1,11 @@
 <?php
-require(load_prerequisitos.php);
-require(load_planeaciones.php);
-require(load_asignaturas.php);
-require(load_docentes.php);
-require(load_estudiantes.php);
-require(load_notas.php);
-require(load_planes.php);
+require('load_prerequisitos.php');
+require('load_planeaciones.php');
+require('load_asignaturas.php');
+require('load_docentes.php');
+require('load_estudiantes.php');
+require('load_notas.php');
+require('load_planes.php');
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
 if ($db) {
