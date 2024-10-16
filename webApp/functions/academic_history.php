@@ -129,12 +129,11 @@ function generateReport($numero_alumno){
     } else {
         echo "<p>Por favor ingrese el número de estudiante.</p>";
     }
+    pg_close($db);
 }
 
-pg_close($db);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['period']) && isset($_POST['student_number'])) {
-        $selectedPeriod = $_POST['period'];
+    if (isset($_POST['student_number'])) {
         $studentNumber = $_POST['student_number'];
         generateReport($studentNumber);
     } else {
