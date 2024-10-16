@@ -102,13 +102,26 @@ function generateReport($numero_alumno){
             foreach ($historial as $periodo => $datos) {
                 $pps = $datos['cantidad_notas'] > 0 ? round($datos['suma_notas'] / $datos['cantidad_notas'], 2) : 0;
                 echo "<h3>Período: $periodo</h3>";
-                echo "<ul>";
+                echo "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 100%;'>";
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th>Asignatura</th>";
+                echo "<th>Nota</th>";
+                echo "<th>Calificación</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
                 foreach ($datos['cursos'] as $curso) {
-                    echo "<li>{$curso['asignatura']} - Nota: {$curso['nota']} ({$curso['calificacion']})</li>";
+                    echo "<tr>";
+                    echo "<td>{$curso['asignatura']}</td>";
+                    echo "<td>{$curso['nota']}</td>";
+                    echo "<td>{$curso['calificacion']}</td>";
+                    echo "</tr>";
                 }
-                echo "</ul>";
+                echo "</tbody>";
+                echo "</table>";
                 echo "<p>PPS: $pps</p>";
-            }
+}
 
             // Resumen total (PPA)
             $ppa = $resumen_total['cantidad_notas'] > 0 ? round($resumen_total['suma_notas'] / $resumen_total['cantidad_notas'], 2) : 0;
