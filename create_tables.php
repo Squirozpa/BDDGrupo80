@@ -25,7 +25,7 @@ if ($db) {
         
         "CREATE TABLE docentes (
             id_docente SERIAL PRIMARY KEY,
-            RUN VARCHAR(20) PRIMARY KEY,
+            RUN VARCHAR(20),
             Nombre VARCHAR(100),
             Apellido_P VARCHAR(100),
             telefono VARCHAR(20),
