@@ -65,6 +65,8 @@ function generateReport($numero_alumno){
                 $periodo = $row['periodo_asignatura'];
                 $nota = $row['nota'];
                 $calificacion = $row['calificacion'];
+                $primer_nombre = $row['primer_nombre'];
+                $primer_apellido = $row['primer_apellido'];
 
                 if (!isset($historial[$periodo])) {
                     $historial[$periodo] = [
@@ -98,7 +100,7 @@ function generateReport($numero_alumno){
             }
 
             // Mostrar el historial
-            echo "<h2>Historial Académico</h2>";
+            echo "<h2>Historial Académico de: {$primer_nombre} {$primer_apellido}</h2>";
             foreach ($historial as $periodo => $datos) {
                 $pps = $datos['cantidad_notas'] > 0 ? round($datos['suma_notas'] / $datos['cantidad_notas'], 2) : 0;
                 echo "<h3>Período: $periodo</h3>";
