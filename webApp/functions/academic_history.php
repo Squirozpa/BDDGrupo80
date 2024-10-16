@@ -65,8 +65,8 @@ function generateReport($numero_alumno){
                 $periodo = $row['periodo_asignatura'];
                 $nota = $row['nota'];
                 $calificacion = $row['calificacion'];
-                $primer_nombre = $row['primer_nombre'];
-                $primer_apellido = $row['primer_apellido'];
+                $primer_nombre = $row['nombres'];
+                $primer_apellido = $row['apellido_paterno'];
 
                 if (!isset($historial[$periodo])) {
                     $historial[$periodo] = [
