@@ -24,6 +24,7 @@ if ($db) {
         )",
         
         "CREATE TABLE docentes (
+            id_docente SERIAL PRIMARY KEY,
             RUN VARCHAR(20) PRIMARY KEY,
             Nombre VARCHAR(100),
             Apellido_P VARCHAR(100),
@@ -79,7 +80,7 @@ if ($db) {
         
         "CREATE TABLE Imparte (
             id_imparte SERIAL PRIMARY KEY,
-            id_profesor INT REFERENCES docentes(id_profesor),
+            id_profesor INT REFERENCES docentes(id_docente),
             id_curso INT REFERENCES Curso(id_curso),
             semestre VARCHAR(10)
         )",
@@ -98,8 +99,8 @@ if ($db) {
             vacantes INT,
             sala VARCHAR(20),
             seccion VARCHAR(20),
-            id_profesor INT REFERENCES docentes(id_profesor),
-            id_profesor_principal INT REFERENCES docentes(id_profesor)
+            id_profesor INT REFERENCES docentes(id_docente),
+            id_profesor_principal INT REFERENCES docentes(id_docente)
         )"
     ];
 
