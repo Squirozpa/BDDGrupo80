@@ -1,11 +1,10 @@
 <?php
-    
+    https://cursos.canvas.uc.cl/files/11120025/download?download_frd=1
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
 if ($db) {
     // Array to hold SQL queries
     $sqlQueries = [
-        // Persona Table
         "CREATE TABLE Persona (
             id_persona SERIAL PRIMARY KEY,
             RUN VARCHAR(20),
@@ -16,100 +15,80 @@ if ($db) {
             Correo VARCHAR(100)
         )",
         
-                // Estudiante Table
         "CREATE TABLE Estudiante (
-            numero_estudiante SERIAL PRIMARY KEY,
-            cohorte VARCHAR(10),
-            bloqueo BOOLEAN,
-            logro TEXT,
-            carga TEXT,
-            id_persona INT REFERENCES Persona(id_persona)
-        )",
-        
-        // Trabajador Table
-        "CREATE TABLE Trabajador (
+            id_estudiante SERIAL PRIMARY KEY,
             id_persona INT REFERENCES Persona(id_persona),
-            Contrato TEXT,
-            PRIMARY KEY (id_persona)
+            numero_estudiante VARCHAR(20),
+            cohorte VARCHAR(10),
+            estado VARCHAR(20)
         )",
         
-        // Departamento Table
-        "CREATE TABLE Departamento (
-            codigo SERIAL PRIMARY KEY,
-            nombre VARCHAR(100)
+        "CREATE TABLE Profesor (
+            id_profesor SERIAL PRIMARY KEY,
+            id_persona INT REFERENCES Persona(id_persona),
+            grado_academico VARCHAR(50),
+            jerarquia_academica VARCHAR(50),
+            jornada VARCHAR(20)
         )",
         
-        // Carrera Table
-        "CREATE TABLE Carrera (
-            nombre VARCHAR(100) PRIMARY KEY
+        "CREATE TABLE Administrativo (
+            id_administrativo SERIAL PRIMARY KEY,
+            id_persona INT REFERENCES Persona(id_persona),
+            cargo VARCHAR(50),
+            jornada VARCHAR(20)
         )",
         
-        // Plan de estudios Table
-        "CREATE TABLE Plan_de_estudios (
-            plan VARCHAR(50),
-            modalidad VARCHAR(50),
-            sede VARCHAR(50),
-            departamento INT REFERENCES Departamento(codigo),
-            PRIMARY KEY (plan)
+        "CREATE TABLE Plan (
+            id_plan SERIAL PRIMARY KEY,
+            codigo_plan VARCHAR(20) UNIQUE,
+            nombre VARCHAR(100),
+            facultad VARCHAR(100),
+            jornada VARCHAR(20),
+            modalidad VARCHAR(20),
+            sede VARCHAR(20),
+            grado VARCHAR(50),
+            fecha_inicio_vigencia DATE
         )",
         
-        // Curso Table
         "CREATE TABLE Curso (
             id_curso SERIAL PRIMARY KEY,
             sigla VARCHAR(10),
             nombre VARCHAR(100),
-            nivel VARCHAR(10),
-            ciclo VARCHAR(10),
-            convocatoria VARCHAR(20),
-            convocatoria2 VARCHAR(20)
+            nivel INT,
+            caracter VARCHAR(20),
+            departamento VARCHAR(100)
         )",
         
-        // Nota Table (for Historial Academico)
-        "CREATE TABLE Nota (
-            calificacion DECIMAL(3, 2),
-            descripcion TEXT,
-            resultado TEXT,
-            convocatoria VARCHAR(20),
-            id_persona INT REFERENCES Persona(id_persona)
+        "CREATE TABLE Inscripcion (
+            id_inscripcion SERIAL PRIMARY KEY,
+            id_estudiante INT REFERENCES Estudiante(id_estudiante),
+            id_curso INT REFERENCES Curso(id_curso),
+            fecha_inscripcion DATE
         )",
         
-        // Grado Academico Table
-        "CREATE TABLE Grado_academico (
-            id_persona INT REFERENCES Trabajador(id_persona),
-            Cargo VARCHAR(50),
-            Jornada VARCHAR(50),
-            PRIMARY KEY (id_persona)
+        "CREATE TABLE Imparte (
+            id_imparte SERIAL PRIMARY KEY,
+            id_profesor INT REFERENCES Profesor(id_profesor),
+            id_curso INT REFERENCES Curso(id_curso),
+            semestre VARCHAR(10)
         )",
         
-        // Oferta academica Table
+        "CREATE TABLE Notas (
+            id_nota SERIAL PRIMARY KEY,
+            id_estudiante INT REFERENCES Estudiante(id_estudiante),
+            id_curso INT REFERENCES Curso(id_curso),
+            nota NUMERIC(3, 1),
+            calificacion VARCHAR(20),
+            periodo VARCHAR(10)
+        )",
+        
         "CREATE TABLE Oferta_academica (
+            id_oferta SERIAL PRIMARY KEY,
             vacantes INT,
             sala VARCHAR(20),
             seccion VARCHAR(20),
-            profesor INT REFERENCES Trabajador(id_persona),
-            profesor_principal INT REFERENCES Trabajador(id_persona)
-        )",
-        
-        // Cursos mínimos Table
-        "CREATE TABLE Cursos_minimos (
-            id_min SERIAL PRIMARY KEY,
-            sigla VARCHAR(10),
-            tipo VARCHAR(20),
-            duracion INT
-        )",
-        
-        // Prerequisitos Table
-        "CREATE TABLE Prerequisitos (
-            sigla VARCHAR(10),
-            ciclo VARCHAR(10),
-            PRIMARY KEY (sigla, ciclo)
-        )",
-        
-        // Equivalentes Table
-        "CREATE TABLE Equivalentes (
-            sigla VARCHAR(10),
-            ciclo VARCHAR(10),
-            PRIMARY KEY (sigla, ciclo)
+            id_profesor INT REFERENCES Profesor(id_profesor),
+            id_profesor_principal INT REFERENCES Profesor(id_profesor)
         )"
     ];
 

@@ -232,4 +232,6 @@ foreach($unclean_docentes as $data)
         "estamento" => $data[15],
     );
 
+    require('load_notas.php');
+    cargar_notas($clean_notas);
 ?>
