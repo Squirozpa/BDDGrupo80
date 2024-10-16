@@ -27,113 +27,126 @@
 <body>
 
 <?php
+function generateReport($numero_alumno){
+    $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
-$db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
-
-if (!$db) {
-    echo "<p>Error: Unable to open database.</p>";
-    exit;
-}
-
-// Recibir el número de estudiante
-$numero_alumno = $_GET['numero_alumno'] ?? null;
-
-if ($numero_alumno) {
-    // Consulta para obtener el historial académico del estudiante
-    $query = "
-        SELECT periodo_asignatura, asignatura, nota, calificacion
-        FROM notas
-        WHERE numero_alumno = $1
-        ORDER BY periodo_asignatura ASC
-    ";
-
-    $result = pg_query_params($db, $query, array($numero_alumno));
-
-    if (!$result) {
-        echo "<p>Error fetching data: " . pg_last_error($db) . "</p>";
+    if (!$db) {
+        echo "<p>Error: Unable to open database.</p>";
         exit;
     }
 
-    // Verificar si hay resultados
-    if (pg_num_rows($result) > 0) {
-        $historial = [];
-        $resumen_total = [
-            'aprobados' => 0,
-            'reprobados' => 0,
-            'vigentes' => 0,
-            'suma_notas' => 0,
-            'cantidad_notas' => 0
-        ];
+    if ($numero_alumno) {
+        // Consulta para obtener el historial académico del estudiante
+        $query = "
+            SELECT periodo_asignatura, asignatura, nota, calificacion
+            FROM notas
+            WHERE numero_alumno = $1
+            ORDER BY periodo_asignatura ASC
+        ";
 
-        while ($row = pg_fetch_assoc($result)) {
-            $periodo = $row['periodo_asignatura'];
-            $nota = $row['nota'];
-            $calificacion = $row['calificacion'];
+        $result = pg_query_params($db, $query, array($numero_alumno));
 
-            if (!isset($historial[$periodo])) {
-                $historial[$periodo] = [
-                    'cursos' => [],
-                    'aprobados' => 0,
-                    'reprobados' => 0,
-                    'vigentes' => 0,
-                    'suma_notas' => 0,
-                    'cantidad_notas' => 0
-                ];
-            }
-
-            $historial[$periodo]['cursos'][] = $row;
-            $historial[$periodo]['suma_notas'] += $nota;
-            $historial[$periodo]['cantidad_notas'] += 1;
-
-            // Clasificar y contar los cursos según la calificación
-            if ($calificacion === 'Aprobado') {
-                $historial[$periodo]['aprobados']++;
-                $resumen_total['aprobados']++;
-            } elseif ($calificacion === 'Reprobado') {
-                $historial[$periodo]['reprobados']++;
-                $resumen_total['reprobados']++;
-            } else {
-                $historial[$periodo]['vigentes']++;
-                $resumen_total['vigentes']++;
-            }
-
-            $resumen_total['suma_notas'] += $nota;
-            $resumen_total['cantidad_notas'] += 1;
+        if (!$result) {
+            echo "<p>Error fetching data: " . pg_last_error($db) . "</p>";
+            exit;
         }
 
-        // Mostrar el historial
-        echo "<h2>Historial Académico</h2>";
-        foreach ($historial as $periodo => $datos) {
-            $pps = $datos['cantidad_notas'] > 0 ? round($datos['suma_notas'] / $datos['cantidad_notas'], 2) : 0;
-            echo "<h3>Período: $periodo</h3>";
-            echo "<ul>";
-            foreach ($datos['cursos'] as $curso) {
-                echo "<li>{$curso['asignatura']} - Nota: {$curso['nota']} ({$curso['calificacion']})</li>";
+        // Verificar si hay resultados
+        if (pg_num_rows($result) > 0) {
+            $historial = [];
+            $resumen_total = [
+                'aprobados' => 0,
+                'reprobados' => 0,
+                'vigentes' => 0,
+                'suma_notas' => 0,
+                'cantidad_notas' => 0
+            ];
+
+            while ($row = pg_fetch_assoc($result)) {
+                $periodo = $row['periodo_asignatura'];
+                $nota = $row['nota'];
+                $calificacion = $row['calificacion'];
+
+                if (!isset($historial[$periodo])) {
+                    $historial[$periodo] = [
+                        'cursos' => [],
+                        'aprobados' => 0,
+                        'reprobados' => 0,
+                        'vigentes' => 0,
+                        'suma_notas' => 0,
+                        'cantidad_notas' => 0
+                    ];
+                }
+
+                $historial[$periodo]['cursos'][] = $row;
+                $historial[$periodo]['suma_notas'] += $nota;
+                $historial[$periodo]['cantidad_notas'] += 1;
+
+                // Clasificar y contar los cursos según la calificación
+                if ($calificacion === 'Aprobado') {
+                    $historial[$periodo]['aprobados']++;
+                    $resumen_total['aprobados']++;
+                } elseif ($calificacion === 'Reprobado') {
+                    $historial[$periodo]['reprobados']++;
+                    $resumen_total['reprobados']++;
+                } else {
+                    $historial[$periodo]['vigentes']++;
+                    $resumen_total['vigentes']++;
+                }
+
+                $resumen_total['suma_notas'] += $nota;
+                $resumen_total['cantidad_notas'] += 1;
             }
-            echo "</ul>";
-            echo "<p>Aprobados: {$datos['aprobados']}, Reprobados: {$datos['reprobados']}, Vigentes: {$datos['vigentes']}</p>";
-            echo "<p>PPS: $pps</p>";
+
+            // Mostrar el historial
+            echo "<h2>Historial Académico</h2>";
+            foreach ($historial as $periodo => $datos) {
+                $pps = $datos['cantidad_notas'] > 0 ? round($datos['suma_notas'] / $datos['cantidad_notas'], 2) : 0;
+                echo "<h3>Período: $periodo</h3>";
+                echo "<ul>";
+                foreach ($datos['cursos'] as $curso) {
+                    echo "<li>{$curso['asignatura']} - Nota: {$curso['nota']} ({$curso['calificacion']})</li>";
+                }
+                echo "</ul>";
+                echo "<p>Aprobados: {$datos['aprobados']}, Reprobados: {$datos['reprobados']}, Vigentes: {$datos['vigentes']}</p>";
+                echo "<p>PPS: $pps</p>";
+            }
+
+            // Resumen total (PPA)
+            $ppa = $resumen_total['cantidad_notas'] > 0 ? round($resumen_total['suma_notas'] / $resumen_total['cantidad_notas'], 2) : 0;
+            echo "<div class='summary'>";
+            echo "<h2>Resumen Total</h2>";
+            echo "<p>Aprobados: {$resumen_total['aprobados']}, Reprobados: {$resumen_total['reprobados']}, Vigentes: {$resumen_total['vigentes']}</p>";
+            echo "<p>PPA: $ppa</p>";
+
+            // Estado del estudiante
+            $estado = $resumen_total['vigentes'] > 0 ? 'Vigente' : ($resumen_total['aprobados'] > $resumen_total['reprobados'] ? 'De Término' : 'No Vigente');
+            echo "<p>Estado del estudiante: $estado</p>";
+            echo "</div>";
+        } else {
+            echo "<p>No se encontró historial académico para el número de estudiante ingresado.</p>";
         }
-
-        // Resumen total (PPA)
-        $ppa = $resumen_total['cantidad_notas'] > 0 ? round($resumen_total['suma_notas'] / $resumen_total['cantidad_notas'], 2) : 0;
-        echo "<div class='summary'>";
-        echo "<h2>Resumen Total</h2>";
-        echo "<p>Aprobados: {$resumen_total['aprobados']}, Reprobados: {$resumen_total['reprobados']}, Vigentes: {$resumen_total['vigentes']}</p>";
-        echo "<p>PPA: $ppa</p>";
-
-        // Estado del estudiante
-        $estado = $resumen_total['vigentes'] > 0 ? 'Vigente' : ($resumen_total['aprobados'] > $resumen_total['reprobados'] ? 'De Término' : 'No Vigente');
-        echo "<p>Estado del estudiante: $estado</p>";
-        echo "</div>";
     } else {
-        echo "<p>No se encontró historial académico para el número de estudiante ingresado.</p>";
+        echo "<p>Por favor ingrese el número de estudiante.</p>";
     }
-} else {
-    echo "<p>Por favor ingrese el número de estudiante.</p>";
 }
 
 pg_close($db);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['period']) && isset($_POST['student_number'])) {
+        $selectedPeriod = $_POST['period'];
+        $studentNumber = $_POST['student_number'];
+        generateReport($studentNumber);
+    } else {
+        echo "Por favor, proporcione un número de alumno.";
+    }
+} else {
+    echo '<form method="POST">';
+    echo '<label for="student_number">Número de Alumno:</label>';
+    echo '<input type="text" name="student_number" id="student_number" required>';
+    echo '<input type="submit" value="Generar Reporte">';
+    echo '</form>';
+}
 
 ?>
 
