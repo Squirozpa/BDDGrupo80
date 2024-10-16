@@ -21,12 +21,13 @@ function cargar_estudiantes($archivo) {
             $causal_bloqueo = pg_escape_string($db, $data[5]);
             $run = pg_escape_string($db, $data[6]);
             $dv = pg_escape_string($db, $data[7]);
-            $nombres = pg_escape_string($db, $data[8]);
-            $primer_apellido = pg_escape_string($db, $data[9]);
-            $segundo_apellido = pg_escape_string($db, $data[10]);
-            $logro = pg_escape_string($db, $data[11]);
-            $fecha_logro = pg_escape_string($db, $data[12]);
-            $ultima_carga = pg_escape_string($db, $data[13]);
+            $primer_nombre = pg_escape_string($db, $data[8]);
+            $segundo_nombre = pg_escape_string($db, $data[9]);
+            $primer_apellido = pg_escape_string($db, $data[10]);
+            $segundo_apellido = pg_escape_string($db, $data[11]);
+            $logro = pg_escape_string($db, $data[12]);
+            $fecha_logro = pg_escape_string($db, $data[13]);
+            $ultima_carga = pg_escape_string($db, $data[14]);
 
             $query = "INSERT INTO estudiantes (codigo_plan, carrera, cohorte, numero_alumno, bloqueo, causal_bloqueo, run, dv, nombres, primer_apellido, segundo_apellido, logro, fecha_logro, ultima_carga) 
                       VALUES ('$codigo_plan', '$carrera', '$cohorte', '$numero_alumno', '$bloqueo', '$causal_bloqueo', '$run', '$dv', '$nombres', '$primer_apellido', '$segundo_apellido', '$logro', '$fecha_logro', '$ultima_carga')";
