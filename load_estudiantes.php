@@ -29,8 +29,8 @@ function cargar_estudiantes($archivo) {
             $fecha_logro = pg_escape_string($db, $data[13]);
             $ultima_carga = pg_escape_string($db, $data[14]);
 
-            $query = "INSERT INTO estudiantes (codigo_plan, carrera, cohorte, numero_alumno, bloqueo, causal_bloqueo, run, dv, nombres, primer_apellido, segundo_apellido, logro, fecha_logro, ultima_carga) 
-                      VALUES ('$codigo_plan', '$carrera', '$cohorte', '$numero_alumno', '$bloqueo', '$causal_bloqueo', '$run', '$dv', '$nombres', '$primer_apellido', '$segundo_apellido', '$logro', '$fecha_logro', '$ultima_carga')";
+            $query = "INSERT INTO estudiantes (codigo_plan, carrera, cohorte, numero_alumno, bloqueo, causal_bloqueo, run, dv, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, logro, fecha_logro, ultima_carga) 
+                      VALUES ('$codigo_plan', '$carrera', '$cohorte', '$numero_alumno', '$bloqueo', '$causal_bloqueo', '$run', '$dv', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$logro', '$fecha_logro', '$ultima_carga')";
             $result = pg_query($db, $query);
 
             if (!$result) {
