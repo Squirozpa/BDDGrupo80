@@ -36,6 +36,4 @@ function cargar_prerequisitos($archivo) {
     pg_close($db);
 }
 
-// Llamar a la función para cargar los datos del archivo CSV
-cargar_prerequisitos("path/to/E2_prereq.csv");
 ?>

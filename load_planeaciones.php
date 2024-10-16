@@ -56,6 +56,4 @@ function cargar_planeacion($archivo) {
     pg_close($db);
 }
 
-// Llamar a la función para cargar los datos del archivo CSV
-cargar_planeacion("path/to/E2_planeacion.csv");
 ?>

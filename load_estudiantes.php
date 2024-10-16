@@ -46,5 +46,4 @@ function cargar_estudiantes($archivo) {
     pg_close($db);
 }
 
-cargar_estudiantes("E2_estudiantes.csv");
 ?>

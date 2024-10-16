@@ -183,4 +183,18 @@ if ($db) {
     echo "<script>alert('Error connecting to the database.'); window.location.href='../views/error.html';</script>";
 }
 
+require(load_prerrequisitos.php);
+require(load_planeaciones.php);
+require(load_asignaturas.php);
+require(load_docentes.php);
+require(load_estudiantes.php);
+require(load_notas.php);
+require(load_planes.php);
+cargar_prerequisitos("E2_prereq.csv");
+cargar_planeacion("E2_planeacion.csv");
+cargar_asignaturas("E2_asignaturas.csv");
+cargar_docentes("E2_docentes.csv");
+cargar_estudiantes("E2_estudiantes.csv");
+cargar_notas("E2_notas.csv");
+cargar_planes("E2_planes.csv");
 ?>

@@ -35,5 +35,4 @@ function cargar_asignaturas($archivo) {
     pg_close($db);
 }
 
-cargar_asignaturas("E2_asignaturas.csv");
 ?>

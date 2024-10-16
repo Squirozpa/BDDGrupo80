@@ -40,5 +40,4 @@ function cargar_planes($archivo) {
     pg_close($db);
 }
 
-cargar_planes("E2_planes.csv");
 ?>

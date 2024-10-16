@@ -48,6 +48,5 @@ function cargar_docentes($archivo) {
 }
 
 
-cargar_docentes("E2_docentes.csv");
 
 ?>

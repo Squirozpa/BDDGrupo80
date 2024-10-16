@@ -47,6 +47,4 @@ function cargar_notas($archivo) {
     pg_close($db);
 }
 
-// Llamar a la función para cargar los datos del archivo CSV
-cargar_notas("E2_notas.csv");
 ?>
