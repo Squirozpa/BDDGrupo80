@@ -38,7 +38,7 @@ function generateReport($numero_alumno){
     if ($numero_alumno) {
         // Consulta para obtener el historial académico del estudiante
         $query = "
-            SELECT periodo_asignatura, asignatura, nota, calificacion
+            SELECT periodo_asignatura, asignatura, nota, calificacion, nombres, apellido_paterno
             FROM notas
             WHERE numero_alumno = $1
             ORDER BY periodo_asignatura ASC
