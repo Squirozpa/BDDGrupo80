@@ -183,7 +183,7 @@ if ($db) {
     echo "<script>alert('Error connecting to the database.'); window.location.href='../views/error.html';</script>";
 }
 
-require(load_prerrequisitos.php);
+require(load_prerequisitos.php);
 require(load_planeaciones.php);
 require(load_asignaturas.php);
 require(load_docentes.php);
