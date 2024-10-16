@@ -96,13 +96,24 @@ if ($db) {
             semestre VARCHAR(10)
         )",
         
-        "CREATE TABLE Notas (
+        "CREATE TABLE notas (
             id_nota SERIAL PRIMARY KEY,
-            id_estudiante INT REFERENCES estudiantes(id_estudiante),
-            id_curso INT REFERENCES Curso(id_curso),
-            nota NUMERIC(3, 1),
-            calificacion VARCHAR(20),
-            periodo VARCHAR(10)
+            codigo_plan VARCHAR(20),
+            plan VARCHAR(255),
+            cohorte VARCHAR(10),
+            sede VARCHAR(50),
+            run VARCHAR(20),
+            dv CHAR(1),
+            nombres VARCHAR(100),
+            apellido_paterno VARCHAR(100),
+            apellido_materno VARCHAR(100),
+            numero_alumno VARCHAR(20),
+            periodo_asignatura VARCHAR(10),
+            codigo_asignatura VARCHAR(20),
+            asignatura VARCHAR(255),
+            convocatoria VARCHAR(10),
+            calificacion VARCHAR(10),
+            nota NUMERIC(3, 1)
         )",
         
         "CREATE TABLE Oferta_academica (
