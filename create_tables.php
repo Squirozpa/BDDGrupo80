@@ -29,7 +29,7 @@ if ($db) {
             segundo_nombre VARCHAR(100),
             primer_apellido VARCHAR(100),
             segundo_apellido VARCHAR(100),
-            logro VARCHAR(50),
+            logro VARCHAR(200),
             fecha_logro VARCHAR(10),
             ultima_carga VARCHAR(10)
         );",
