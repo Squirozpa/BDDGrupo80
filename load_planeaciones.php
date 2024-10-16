@@ -28,19 +28,8 @@ function cargar_planeacion($archivo) {
             $dia = pg_escape_string($db, $data[12]);
             $hora_inicio = pg_escape_string($db, $data[13]);
             $hora_fin = pg_escape_string($db, $data[14]);
-
-            // Manejo de fechas
-            $fecha_inicio_obj = DateTime::createFromFormat('d/m/y', $data[15]);
-            $fecha_fin_obj = DateTime::createFromFormat('d/m/y', $data[16]);
-
-            if ($fecha_inicio_obj && $fecha_fin_obj) {
-                $fecha_inicio = $fecha_inicio_obj->format('Y-m-d');
-                $fecha_fin = $fecha_fin_obj->format('Y-m-d');
-            } else {
-                echo "Error parsing dates: " . $data[15] . " or " . $data[16] . "\n";
-                continue; // Saltar esta fila si hay un error en las fechas
-            }
-
+            $fecha_inicio = pg_escape_string($db, $data[15]);
+            $fecha_fin = pg_escape_string($db, $data[16]);
             $lugar = pg_escape_string($db, $data[17]);
             $edificio = pg_escape_string($db, $data[18]);
             $profesor_principal = pg_escape_string($db, $data[19]);

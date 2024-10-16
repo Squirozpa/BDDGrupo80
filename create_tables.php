@@ -59,7 +59,7 @@ if ($db) {
             sede VARCHAR(100),
             grado VARCHAR(50),
             modalidad VARCHAR(50),
-            inicio_vigencia DATE
+            inicio_vigencia VARCHAR(50),
         )",
 
         "CREATE TABLE planeacion (
@@ -76,10 +76,10 @@ if ($db) {
             cupo INT,
             inscritos INT,
             dia VARCHAR(20),
-            hora_inicio TIME,
-            hora_fin TIME,
-            fecha_inicio DATE,
-            fecha_fin DATE,
+            hora_inicio VARCHAR(50),
+            hora_fin VARCHAR(50),
+            fecha_inicio VARCHAR(50),
+            fecha_fin VARCHAR(50),
             lugar VARCHAR(100),
             edificio VARCHAR(100),
             profesor_principal CHAR(1),

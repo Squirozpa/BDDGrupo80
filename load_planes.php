@@ -21,14 +21,8 @@ function cargar_planes($archivo) {
             $sede = pg_escape_string($db, $data[5]);
             $grado = pg_escape_string($db, $data[6]);
             $modalidad = pg_escape_string($db, $data[7]);
-            $inicio_vigencia_obj = DateTime::createFromFormat('d/m/y', $data[8])->format('Y-m-d');
+            $inicio_vigencia = pg_escape_string($db, $data[7]);
 
-            if ($inicio_vigencia_obj) {
-                $inicio_vigencia = $inicio_vigencia_obj->format('Y-m-d');
-            } else {
-                echo "Error parsing dates: " . $data[9] . "\n";
-                continue;
-            }
             $query = "INSERT INTO planes (codigo_plan, facultad, carrera, plan, jornada, sede, grado, modalidad, inicio_vigencia) 
                       VALUES ('$codigo_plan', '$facultad', '$carrera', '$plan', '$jornada', '$sede', '$grado', '$modalidad', '$inicio_vigencia')";
             $result = pg_query($db, $query);
