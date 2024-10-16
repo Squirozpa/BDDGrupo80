@@ -29,8 +29,8 @@ if ($db) {
             primer_apellido VARCHAR(100),
             segundo_apellido VARCHAR(100),
             logro VARCHAR(50),
-            fecha_logro DATE,
-            ultima_carga DATE
+            fecha_logro VARCHAR(10),
+            ultima_carga VARCHAR(10)
         );",
         
         "CREATE TABLE docentes (
