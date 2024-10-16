@@ -51,7 +51,6 @@ function generateReport($numero_alumno){
             exit;
         }
 
-        // Verificar si hay resultados
         if (pg_num_rows($result) > 0) {
             $historial = [];
             $resumen_total = [
@@ -108,20 +107,14 @@ function generateReport($numero_alumno){
                     echo "<li>{$curso['asignatura']} - Nota: {$curso['nota']} ({$curso['calificacion']})</li>";
                 }
                 echo "</ul>";
-                echo "<p>Aprobados: {$datos['aprobados']}, Reprobados: {$datos['reprobados']}, Vigentes: {$datos['vigentes']}</p>";
                 echo "<p>PPS: $pps</p>";
             }
 
             // Resumen total (PPA)
             $ppa = $resumen_total['cantidad_notas'] > 0 ? round($resumen_total['suma_notas'] / $resumen_total['cantidad_notas'], 2) : 0;
             echo "<div class='summary'>";
-            echo "<h2>Resumen Total</h2>";
-            echo "<p>Aprobados: {$resumen_total['aprobados']}, Reprobados: {$resumen_total['reprobados']}, Vigentes: {$resumen_total['vigentes']}</p>";
             echo "<p>PPA: $ppa</p>";
 
-            // Estado del estudiante
-            $estado = $resumen_total['vigentes'] > 0 ? 'Vigente' : ($resumen_total['aprobados'] > $resumen_total['reprobados'] ? 'De Término' : 'No Vigente');
-            echo "<p>Estado del estudiante: $estado</p>";
             echo "</div>";
         } else {
             echo "<p>No se encontró historial académico para el número de estudiante ingresado.</p>";
