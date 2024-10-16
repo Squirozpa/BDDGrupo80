@@ -23,13 +23,24 @@ if ($db) {
             estado VARCHAR(20)
         )",
         
-        "CREATE TABLE Profesor (
-            id_profesor SERIAL PRIMARY KEY,
-            id_persona INT REFERENCES Persona(id_persona),
-            grado_academico VARCHAR(50),
-            jerarquia_academica VARCHAR(50),
-            jornada VARCHAR(20)
-        )",
+        "CREATE TABLE docentes (
+            RUN VARCHAR(20) PRIMARY KEY,
+            Nombre VARCHAR(100),
+            Apellido_P VARCHAR(100),
+            telefono VARCHAR(20),
+            email_personal VARCHAR(100),
+            email_institucional VARCHAR(100),
+            DEDICACION VARCHAR(20),
+            CONTRATO VARCHAR(20),
+            DIURNO BOOLEAN,
+            VESPERTINO BOOLEAN,
+            SEDE VARCHAR(50),
+            CARRERA VARCHAR(100),
+            GRADO_ACADEMICO VARCHAR(50),
+            JERARQUIA VARCHAR(50),
+            CARGO VARCHAR(50),
+            ESTAMENTO VARCHAR(50)
+        );",
         
         "CREATE TABLE Administrativo (
             id_administrativo SERIAL PRIMARY KEY,
