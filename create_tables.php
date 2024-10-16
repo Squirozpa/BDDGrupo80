@@ -61,16 +61,44 @@ if ($db) {
             jornada VARCHAR(20)
         )",
         
-        "CREATE TABLE Plan (
-            id_plan SERIAL PRIMARY KEY,
-            codigo_plan VARCHAR(20) UNIQUE,
-            nombre VARCHAR(100),
-            facultad VARCHAR(100),
-            jornada VARCHAR(20),
-            modalidad VARCHAR(20),
-            sede VARCHAR(20),
+        "CREATE TABLE planes (
+            codigo_plan VARCHAR(20) PRIMARY KEY,
+            facultad VARCHAR(255),
+            carrera VARCHAR(255),
+            plan VARCHAR(255),
+            jornada VARCHAR(50),
+            sede VARCHAR(100),
             grado VARCHAR(50),
-            fecha_inicio_vigencia DATE
+            modalidad VARCHAR(50),
+            inicio_vigencia DATE
+        )",
+
+        "CREATE TABLE planeacion (
+            periodo VARCHAR(10),
+            sede VARCHAR(100),
+            facultad VARCHAR(255),
+            codigo_depto VARCHAR(20),
+            departamento VARCHAR(255),
+            id_asignatura VARCHAR(20),
+            asignatura VARCHAR(255),
+            seccion INT,
+            duracion CHAR(1),
+            jornada VARCHAR(50),
+            cupo INT,
+            inscritos INT,
+            dia VARCHAR(20),
+            hora_inicio TIME,
+            hora_fin TIME,
+            fecha_inicio DATE,
+            fecha_fin DATE,
+            lugar VARCHAR(100),
+            edificio VARCHAR(100),
+            profesor_principal CHAR(1),
+            run VARCHAR(20),
+            nombre_docente VARCHAR(100),
+            primer_apellido_docente VARCHAR(100),
+            segundo_apellido_docente VARCHAR(100),
+            jerarquizacion CHAR(1)
         )",
         
         "CREATE TABLE Curso (
@@ -95,6 +123,14 @@ if ($db) {
             id_curso INT REFERENCES Curso(id_curso),
             semestre VARCHAR(10)
         )",
+
+        "CREATE TABLE prerequisitos (
+            plan VARCHAR(20),
+            asignatura_id VARCHAR(20),
+            asignatura VARCHAR(255),
+            nivel INT,
+            prerequisito VARCHAR(255)
+        )",
         
         "CREATE TABLE notas (
             id_nota SERIAL PRIMARY KEY,
@@ -116,6 +152,13 @@ if ($db) {
             nota NUMERIC(3, 1)
         )",
         
+        "CREATE TABLE asignaturas (
+            plan VARCHAR(20),
+            asignatura_id VARCHAR(20) PRIMARY KEY,
+            asignatura VARCHAR(255),
+            nivel INT
+        )",
+
         "CREATE TABLE Oferta_academica (
             id_oferta SERIAL PRIMARY KEY,
             vacantes INT,
