@@ -1,5 +1,11 @@
 <?php
-    https://cursos.canvas.uc.cl/files/11120025/download?download_frd=1
+require(load_prerequisitos.php);
+require(load_planeaciones.php);
+require(load_asignaturas.php);
+require(load_docentes.php);
+require(load_estudiantes.php);
+require(load_notas.php);
+require(load_planes.php);
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
 if ($db) {
@@ -183,13 +189,7 @@ if ($db) {
     echo "<script>alert('Error connecting to the database.'); window.location.href='../views/error.html';</script>";
 }
 
-require(load_prerequisitos.php);
-require(load_planeaciones.php);
-require(load_asignaturas.php);
-require(load_docentes.php);
-require(load_estudiantes.php);
-require(load_notas.php);
-require(load_planes.php);
+
 cargar_prerequisitos("E2_prereq.csv");
 cargar_planeacion("E2_planeacion.csv");
 cargar_asignaturas("E2_asignaturas.csv");
