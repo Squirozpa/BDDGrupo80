@@ -1,6 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historial Académico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .summary {
+            margin-top: 20px;
+        }
+        .summary p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
 <?php
 
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
+
+if (!$db) {
+    echo "<p>Error: Unable to open database.</p>";
+    exit;
+}
 
 // Recibir el número de estudiante
 $numero_alumno = $_GET['numero_alumno'] ?? null;
@@ -15,6 +48,11 @@ if ($numero_alumno) {
     ";
 
     $result = pg_query_params($db, $query, array($numero_alumno));
+
+    if (!$result) {
+        echo "<p>Error fetching data: " . pg_last_error($db) . "</p>";
+        exit;
+    }
 
     // Verificar si hay resultados
     if (pg_num_rows($result) > 0) {
@@ -79,6 +117,7 @@ if ($numero_alumno) {
 
         // Resumen total (PPA)
         $ppa = $resumen_total['cantidad_notas'] > 0 ? round($resumen_total['suma_notas'] / $resumen_total['cantidad_notas'], 2) : 0;
+        echo "<div class='summary'>";
         echo "<h2>Resumen Total</h2>";
         echo "<p>Aprobados: {$resumen_total['aprobados']}, Reprobados: {$resumen_total['reprobados']}, Vigentes: {$resumen_total['vigentes']}</p>";
         echo "<p>PPA: $ppa</p>";
@@ -86,6 +125,7 @@ if ($numero_alumno) {
         // Estado del estudiante
         $estado = $resumen_total['vigentes'] > 0 ? 'Vigente' : ($resumen_total['aprobados'] > $resumen_total['reprobados'] ? 'De Término' : 'No Vigente');
         echo "<p>Estado del estudiante: $estado</p>";
+        echo "</div>";
     } else {
         echo "<p>No se encontró historial académico para el número de estudiante ingresado.</p>";
     }
@@ -93,4 +133,9 @@ if ($numero_alumno) {
     echo "<p>Por favor ingrese el número de estudiante.</p>";
 }
 
+pg_close($db);
+
 ?>
+
+</body>
+</html>
