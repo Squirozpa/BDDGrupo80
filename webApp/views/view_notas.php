@@ -31,6 +31,38 @@
     <input type="submit" value="Filtrar">
 </form>
 
+<?php
+$db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
+
+if (!$db) {
+    echo "Error: Unable to open database.\n";
+    exit;
+}
+
+$numero_alumno = isset($_GET['numero_alumno']) ? pg_escape_string($db, $_GET['numero_alumno']) : '';
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 10; // Número de registros por página
+$offset = ($page - 1) * $limit;
+
+if ($numero_alumno) {
+    $query = "SELECT * FROM notas WHERE numero_alumno = '$numero_alumno' LIMIT $limit OFFSET $offset";
+    $count_query = "SELECT COUNT(*) FROM notas WHERE numero_alumno = '$numero_alumno'";
+} else {
+    $query = "SELECT * FROM notas LIMIT $limit OFFSET $offset";
+    $count_query = "SELECT COUNT(*) FROM notas";
+}
+
+$result = pg_query($db, $query);
+$count_result = pg_query($db, $count_query);
+$total_rows = pg_fetch_result($count_result, 0, 0);
+$total_pages = ceil($total_rows / $limit);
+
+if (!$result) {
+    echo "Error fetching data: " . pg_last_error($db) . "\n";
+    exit;
+}
+?>
+
 <div class="scrollable">
     <table>
         <thead>
@@ -55,28 +87,6 @@
         </thead>
         <tbody>
             <?php
-            $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
-
-            if (!$db) {
-                echo "Error: Unable to open database.\n";
-                exit;
-            }
-
-            $numero_alumno = isset($_GET['numero_alumno']) ? pg_escape_string($db, $_GET['numero_alumno']) : '';
-
-            if ($numero_alumno) {
-                $query = "SELECT * FROM notas WHERE numero_alumno = '$numero_alumno'";
-            } else {
-                $query = "SELECT * FROM notas";
-            }
-
-            $result = pg_query($db, $query);
-
-            if (!$result) {
-                echo "Error fetching data: " . pg_last_error($db) . "\n";
-                exit;
-            }
-
             while ($row = pg_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['codigo_plan']) . "</td>";
@@ -102,6 +112,16 @@
             ?>
         </tbody>
     </table>
+</div>
+
+<div>
+    <?php if ($page > 1): ?>
+        <a href="?page=<?php echo $page - 1; ?>&numero_alumno=<?php echo $numero_alumno; ?>">Anterior</a>
+    <?php endif; ?>
+
+    <?php if ($page < $total_pages): ?>
+        <a href="?page=<?php echo $page + 1; ?>&numero_alumno=<?php echo $numero_alumno; ?>">Siguiente</a>
+    <?php endif; ?>
 </div>
 
 </body>
