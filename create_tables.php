@@ -14,6 +14,12 @@ if ($db) {
             Telefono VARCHAR(20),
             Correo VARCHAR(100)
         )",
+
+        "CREATE TABLE users (
+            id_persona SERIAL PRIMARY KEY,
+            email VARCHAR(50),
+            password VARCHAR(255)
+        )",
         
         "CREATE TABLE estudiantes (
             id_estudiante SERIAL PRIMARY KEY,
