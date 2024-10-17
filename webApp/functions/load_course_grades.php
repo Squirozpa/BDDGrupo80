@@ -19,7 +19,7 @@ fputcsv($file, ['numero_alumno', 'primer_nombre', 'primer_apellido', 'nota', 'ca
 while ($row = pg_fetch_assoc($result)) {
     fputcsv($file, [$row['numero_alumno'], $row['primer_nombre'], $row['primer_apellido'], $row['nota'], $row['calificacion'], $row['convocatoria']]);
 }
-
+echo "Archivo generado exitosamente.";
 fclose($file);
 pg_close($db);
 
