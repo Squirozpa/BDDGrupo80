@@ -12,7 +12,7 @@ $curso_sigla = "WH236032";
 $semestre_vigente = "2024-02";
 
 $query = "
-    SELECT codigo_plan, plan, cohorte, sede, run, DV, Nombres, Apellido_Paterno, Apellido_Materno, Numero_alumno, Periodo_Asignatura, Codigo_Asignatura, Asignatura, Convocatoria, Calificacion, Nota
+    SELECT *
     FROM notas
     WHERE Codigo_Asignatura = $1 AND Periodo_Asignatura = $2";
 $result = pg_query_params($db, $query, array($curso_sigla, $semestre_vigente));
