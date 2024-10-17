@@ -8,22 +8,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Validar que la contraseña tenga exactamente 8 caracteres alfanuméricos
     if (!preg_match('/^[a-zA-Z0-9]{8}$/', $password)) {
         echo "<script>alert('La contraseña deben ser 8 alfanumericos.'); window.location.href='../views/add_user_interface.html';</script>";
         exit;
     }
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Verificar si el usuario ya existe
-    $check_query = "SELECT * FROM users WHERE email = $1";
-    $check_result = pg_query_params($db, $check_query, array($email));
+    $new_user_query = "SELECT * FROM users WHERE email = $1";
+    $new_user_result = pg_query_params($db, $new_user_query, array($email));
 
-    if (pg_num_rows($check_result) > 0) {
+    $docente_valid_query = "SELECT email_institucional FROM docentes WHERE email_institucional = $1";
+    $docente_valid_result = pg_query_params($db, $docente_valid_query, array($email));
+
+    if (pg_num_rows($new_user_result) > 0) {
         echo "<script>alert('El usuario ya existe.'); window.location.href='../views/add_user_interface.html';</script>";
-    } else {
-        // Insertar el nuevo usuario en la base de datos
+    } elseif(pg_num_rows($docente_valid_result) == 0){
+        echo "<script>alert('El usuario no es parte de la institución.'); window.location.href='../views/add_user_interface.html';</script>";
+    }
+    else {
         $query = "INSERT INTO users (email, password) VALUES ($1, $2)";
-        $result = pg_query_params($db, $query, array($email, $password));
+        $result = pg_query_params($db, $query, array($email, $hashed_password));
 
         if ($result) {
             echo "<script>alert('Usuario creado.'); window.location.href='../views/add_user_interface.html';</script>";

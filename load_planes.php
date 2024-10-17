@@ -23,6 +23,7 @@ function cargar_planes($archivo) {
             $modalidad = pg_escape_string($db, $data[7]);
             $inicio_vigencia = pg_escape_string($db, $data[7]);
 
+
             $query = "INSERT INTO planes (codigo_plan, facultad, carrera, plan, jornada, sede, grado, modalidad, inicio_vigencia) 
                       VALUES ('$codigo_plan', '$facultad', '$carrera', '$plan', '$jornada', '$sede', '$grado', '$modalidad', '$inicio_vigencia')";
             $result = pg_query($db, $query);

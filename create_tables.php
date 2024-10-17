@@ -29,6 +29,12 @@ if ($db) {
             fecha_logro VARCHAR(10),
             ultima_carga VARCHAR(10)
         );",
+      
+      "CREATE TABLE users (
+            id_persona SERIAL PRIMARY KEY,
+            email VARCHAR(50),
+            password VARCHAR(255)
+        )",
         
         "CREATE TABLE docentes (
             id_docente SERIAL PRIMARY KEY,
