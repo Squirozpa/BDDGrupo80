@@ -10,6 +10,7 @@ if ($file === false) {
 
 $curso_sigla = "WH236032";
 $semestre_vigente = "2024-02";
+echo "Archivo generado exitosamente.";
 
 $acta_notas = [];
 $errores = [];
