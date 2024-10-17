@@ -1,10 +1,17 @@
 <?php
-    https://cursos.canvas.uc.cl/files/11120025/download?download_frd=1
+require('load_prerequisitos.php');
+require('load_planeaciones.php');
+require('load_asignaturas.php');
+require('load_docentes.php');
+require('load_estudiantes.php');
+require('load_notas.php');
+require('load_planes.php');
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
 if ($db) {
     // Array to hold SQL queries
     $sqlQueries = [
+
         "CREATE TABLE Persona (
             id_persona SERIAL PRIMARY KEY,
             RUN VARCHAR(20),
@@ -67,6 +74,8 @@ if ($db) {
             jornada VARCHAR(20)
         )",
         
+ 
+        
         "CREATE TABLE planes (
             codigo_plan VARCHAR(20) PRIMARY KEY,
             facultad VARCHAR(255),
@@ -76,35 +85,6 @@ if ($db) {
             sede VARCHAR(100),
             grado VARCHAR(50),
             modalidad VARCHAR(50),
-            inicio_vigencia DATE
-        )",
-
-        "CREATE TABLE planeacion (
-            periodo VARCHAR(10),
-            sede VARCHAR(100),
-            facultad VARCHAR(255),
-            codigo_depto VARCHAR(20),
-            departamento VARCHAR(255),
-            id_asignatura VARCHAR(20),
-            asignatura VARCHAR(255),
-            seccion INT,
-            duracion CHAR(1),
-            jornada VARCHAR(50),
-            cupo INT,
-            inscritos INT,
-            dia VARCHAR(20),
-            hora_inicio TIME,
-            hora_fin TIME,
-            fecha_inicio DATE,
-            fecha_fin DATE,
-            lugar VARCHAR(100),
-            edificio VARCHAR(100),
-            profesor_principal CHAR(1),
-            run VARCHAR(20),
-            nombre_docente VARCHAR(100),
-            primer_apellido_docente VARCHAR(100),
-            segundo_apellido_docente VARCHAR(100),
-            jerarquizacion CHAR(1)
         )",
         
         "CREATE TABLE Curso (
@@ -128,6 +108,35 @@ if ($db) {
             id_profesor INT REFERENCES docentes(id_docente),
             id_curso INT REFERENCES Curso(id_curso),
             semestre VARCHAR(10)
+            inicio_vigencia VARCHAR(50)
+        )",
+
+        "CREATE TABLE planeacion (
+            periodo VARCHAR(10),
+            sede VARCHAR(100),
+            facultad VARCHAR(255),
+            codigo_depto VARCHAR(20),
+            departamento VARCHAR(255),
+            id_asignatura VARCHAR(20),
+            asignatura VARCHAR(255),
+            seccion INT,
+            duracion CHAR(1),
+            jornada VARCHAR(50),
+            cupo INT,
+            inscritos INT,
+            dia VARCHAR(20),
+            hora_inicio VARCHAR(50),
+            hora_fin VARCHAR(50),
+            fecha_inicio VARCHAR(50),
+            fecha_fin VARCHAR(50),
+            lugar VARCHAR(100),
+            edificio VARCHAR(100),
+            profesor_principal CHAR(1),
+            run VARCHAR(20),
+            nombre_docente VARCHAR(100),
+            primer_apellido_docente VARCHAR(100),
+            segundo_apellido_docente VARCHAR(100),
+            jerarquizacion CHAR(1)
         )",
 
         "CREATE TABLE prerequisitos (
@@ -165,14 +174,6 @@ if ($db) {
             nivel INT
         )",
 
-        "CREATE TABLE Oferta_academica (
-            id_oferta SERIAL PRIMARY KEY,
-            vacantes INT,
-            sala VARCHAR(20),
-            seccion VARCHAR(20),
-            id_profesor INT REFERENCES docentes(id_docente),
-            id_profesor_principal INT REFERENCES docentes(id_docente)
-        )"
     ];
 
     // Execute each query
@@ -189,13 +190,7 @@ if ($db) {
     echo "<script>alert('Error connecting to the database.'); window.location.href='../views/error.html';</script>";
 }
 
-require(load_prerequisitos.php);
-require(load_planeaciones.php);
-require(load_asignaturas.php);
-require(load_docentes.php);
-require(load_estudiantes.php);
-require(load_notas.php);
-require(load_planes.php);
+
 cargar_prerequisitos("E2_prereq.csv");
 cargar_planeacion("E2_planeacion.csv");
 cargar_asignaturas("E2_asignaturas.csv");

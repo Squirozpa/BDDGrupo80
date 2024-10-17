@@ -21,7 +21,9 @@ function cargar_planes($archivo) {
             $sede = pg_escape_string($db, $data[5]);
             $grado = pg_escape_string($db, $data[6]);
             $modalidad = pg_escape_string($db, $data[7]);
-            $inicio_vigencia = DateTime::createFromFormat('d/m/y', $data[8])->format('Y-m-d');
+
+            $inicio_vigencia = pg_escape_string($db, $data[7]);
+
 
             $query = "INSERT INTO planes (codigo_plan, facultad, carrera, plan, jornada, sede, grado, modalidad, inicio_vigencia) 
                       VALUES ('$codigo_plan', '$facultad', '$carrera', '$plan', '$jornada', '$sede', '$grado', '$modalidad', '$inicio_vigencia')";
