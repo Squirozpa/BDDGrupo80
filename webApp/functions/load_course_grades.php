@@ -51,13 +51,11 @@ while (($data = fgetcsv($file, 1000, ",")) !== false) {
 }
 
 fclose($file);
-echo "Archivo CSV procesado correctamente.1";
 // Obtener los estudiantes que estaban en el curso y periodo pero no aparecen en el archivo CSV
 $query = "
-    SELECT e.numero_alumno, e.run, e.primer_nombre, e.apellido_paterno, e.apellido_materno
-    FROM notas n
-    JOIN estudiantes e ON n.numero_alumno = e.numero_alumno
-    WHERE n.codigo_asignatura = $1 AND n.periodo_asignatura = $2
+SELECT *
+FROM notas n
+WHERE n.codigo_asignatura = $1 AND n.periodo_asignatura = $2
 ";
 $result = pg_query_params($db, $query, array($curso_sigla, $semestre_vigente));
 
@@ -68,6 +66,7 @@ while ($row = pg_fetch_assoc($result)) {
         $alumnos_no_encontrados[] = $row;
     }
 }
+echo "Archivo CSV procesado correctamente.1";
 
 pg_close($db);
 ?>
