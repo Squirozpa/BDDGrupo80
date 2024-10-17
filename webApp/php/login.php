@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed_password = $user['password'];
     
         if (password_verify($password, $hashed_password)) {
-            echo "<script>alert('Inicio de sesión exitoso.'); window.location.href='../views/dashboard.html';</script>";
+            echo "<script>alert('Inicio de sesión exitoso.'); window.location.href='../views/menu_principal.html';</script>";
         } else {
             echo "<script>alert('Contraseña incorrecta.'); window.location.href='../views/login.html';</script>";
         }
