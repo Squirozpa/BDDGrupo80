@@ -11,13 +11,17 @@ if ($file === false) {
 $curso_sigla = "WH236032";
 $semestre_vigente = "2024-02";
 
+$query = "
+    SELECT codigo_plan, plan, cohorte, sede, run, DV, Nombres, Apellido_Paterno, Apellido_Materno, Numero_de_alumno, Periodo_Asignatura, Codigo_Asignatura, Asignatura, Convocatoria, Calificacion, Nota
+    FROM notas
+    WHERE Codigo_Asignatura = $1 AND Periodo_Asignatura = $2";
+$result = pg_query_params($db, $query, array($curso_sigla, $semestre_vigente));
 $acta_notas = [];
 $errores = [];
 
-fputcsv($file, ['numero_alumno', 'primer_nombre', 'primer_apellido', 'nota', 'calificacion', 'convocatoria']);
+fputcsv($file, ["codigo_plan", "plan", "cohorte", "sede", "run", "DV", "Nombres", "Apellido_Paterno", "Apellido_Materno", "Numero_de_alumno", "Periodo_Asignatura", "Codigo_Asignatura", "Asignatura", "Convocatoria", "Calificacion", "Nota"]);
 
 while ($row = pg_fetch_assoc($result)) {
-    echo "Archivo generado exitosamente.";
     fputcsv($file, [$row['codigo_plan'], $row['plan'], $row['cohorte'], $row['sede'], 
     $row['run'], $row['DV'], $row['Nombres'], $row['Apellido_Paterno'], 
     $row['Apellido_Materno'], $row['Numero_de_alumno'], $row['Periodo_Asignatura'], 
