@@ -165,7 +165,7 @@ pg_close($db);
                 <tr>
                     <td><?php echo $alumno['run']; ?></td>
                     <td><?php echo $alumno['numero_alumno']; ?></td>
-                    <td><?php echo $alumno['primer_nombre']; ?></td>
+                    <td><?php echo $alumno['nombres']; ?></td>
                     <td><?php echo $alumno['apellido_paterno']; ?></td>
                     <td><?php echo $alumno['apellido_materno']; ?></td>
                 </tr>
