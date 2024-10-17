@@ -1,11 +1,10 @@
 <?php
-    
+    https://cursos.canvas.uc.cl/files/11120025/download?download_frd=1
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
 if ($db) {
     // Array to hold SQL queries
     $sqlQueries = [
-        // Persona Table
         "CREATE TABLE Persona (
             id_persona SERIAL PRIMARY KEY,
             RUN VARCHAR(20),
@@ -15,101 +14,164 @@ if ($db) {
             Telefono VARCHAR(20),
             Correo VARCHAR(100)
         )",
+
+        "CREATE TABLE users (
+            id_persona SERIAL PRIMARY KEY,
+            email VARCHAR(50),
+            password VARCHAR(255)
+        )",
         
-                // Estudiante Table
-        "CREATE TABLE Estudiante (
-            numero_estudiante SERIAL PRIMARY KEY,
+        "CREATE TABLE estudiantes (
+            id_estudiante SERIAL PRIMARY KEY,
+            codigo_plan VARCHAR(20),
+            carrera VARCHAR(100),
             cohorte VARCHAR(10),
+            numero_alumno VARCHAR(20),
             bloqueo BOOLEAN,
-            logro TEXT,
-            carga TEXT,
-            id_persona INT REFERENCES Persona(id_persona)
-        )",
+            causal_bloqueo VARCHAR(255),
+            run VARCHAR(20),
+            dv CHAR(1),
+            primer_nombre VARCHAR(100),
+            segundo_nombre VARCHAR(100),
+            primer_apellido VARCHAR(100),
+            segundo_apellido VARCHAR(100),
+            logro VARCHAR(200),
+            fecha_logro VARCHAR(10),
+            ultima_carga VARCHAR(10)
+        );",
         
-        // Trabajador Table
-        "CREATE TABLE Trabajador (
+        "CREATE TABLE docentes (
+            id_docente SERIAL PRIMARY KEY,
+            RUN VARCHAR(20),
+            Nombre VARCHAR(100),
+            Apellido_P VARCHAR(100),
+            telefono VARCHAR(20),
+            email_personal VARCHAR(100),
+            email_institucional VARCHAR(100),
+            DEDICACION VARCHAR(20),
+            CONTRATO VARCHAR(20),
+            DIURNO BOOLEAN,
+            VESPERTINO BOOLEAN,
+            SEDE VARCHAR(50),
+            CARRERA VARCHAR(100),
+            GRADO_ACADEMICO VARCHAR(50),
+            JERARQUIA VARCHAR(50),
+            CARGO VARCHAR(50),
+            ESTAMENTO VARCHAR(50)
+        );",
+        
+        "CREATE TABLE Administrativo (
+            id_administrativo SERIAL PRIMARY KEY,
             id_persona INT REFERENCES Persona(id_persona),
-            Contrato TEXT,
-            PRIMARY KEY (id_persona)
+            cargo VARCHAR(50),
+            jornada VARCHAR(20)
         )",
         
-        // Departamento Table
-        "CREATE TABLE Departamento (
-            codigo SERIAL PRIMARY KEY,
-            nombre VARCHAR(100)
-        )",
-        
-        // Carrera Table
-        "CREATE TABLE Carrera (
-            nombre VARCHAR(100) PRIMARY KEY
-        )",
-        
-        // Plan de estudios Table
-        "CREATE TABLE Plan_de_estudios (
-            plan VARCHAR(50),
+        "CREATE TABLE planes (
+            codigo_plan VARCHAR(20) PRIMARY KEY,
+            facultad VARCHAR(255),
+            carrera VARCHAR(255),
+            plan VARCHAR(255),
+            jornada VARCHAR(50),
+            sede VARCHAR(100),
+            grado VARCHAR(50),
             modalidad VARCHAR(50),
-            sede VARCHAR(50),
-            departamento INT REFERENCES Departamento(codigo),
-            PRIMARY KEY (plan)
+            inicio_vigencia DATE
+        )",
+
+        "CREATE TABLE planeacion (
+            periodo VARCHAR(10),
+            sede VARCHAR(100),
+            facultad VARCHAR(255),
+            codigo_depto VARCHAR(20),
+            departamento VARCHAR(255),
+            id_asignatura VARCHAR(20),
+            asignatura VARCHAR(255),
+            seccion INT,
+            duracion CHAR(1),
+            jornada VARCHAR(50),
+            cupo INT,
+            inscritos INT,
+            dia VARCHAR(20),
+            hora_inicio TIME,
+            hora_fin TIME,
+            fecha_inicio DATE,
+            fecha_fin DATE,
+            lugar VARCHAR(100),
+            edificio VARCHAR(100),
+            profesor_principal CHAR(1),
+            run VARCHAR(20),
+            nombre_docente VARCHAR(100),
+            primer_apellido_docente VARCHAR(100),
+            segundo_apellido_docente VARCHAR(100),
+            jerarquizacion CHAR(1)
         )",
         
-        // Curso Table
         "CREATE TABLE Curso (
             id_curso SERIAL PRIMARY KEY,
             sigla VARCHAR(10),
             nombre VARCHAR(100),
-            nivel VARCHAR(10),
-            ciclo VARCHAR(10),
-            convocatoria VARCHAR(20),
-            convocatoria2 VARCHAR(20)
+            nivel INT,
+            caracter VARCHAR(20),
+            departamento VARCHAR(100)
         )",
         
-        // Nota Table (for Historial Academico)
-        "CREATE TABLE Nota (
-            calificacion DECIMAL(3, 2),
-            descripcion TEXT,
-            resultado TEXT,
-            convocatoria VARCHAR(20),
-            id_persona INT REFERENCES Persona(id_persona)
+        "CREATE TABLE Inscripcion (
+            id_inscripcion SERIAL PRIMARY KEY,
+            id_estudiante INT REFERENCES estudiantes(id_estudiante),
+            id_curso INT REFERENCES Curso(id_curso),
+            fecha_inscripcion DATE
         )",
         
-        // Grado Academico Table
-        "CREATE TABLE Grado_academico (
-            id_persona INT REFERENCES Trabajador(id_persona),
-            Cargo VARCHAR(50),
-            Jornada VARCHAR(50),
-            PRIMARY KEY (id_persona)
+        "CREATE TABLE Imparte (
+            id_imparte SERIAL PRIMARY KEY,
+            id_profesor INT REFERENCES docentes(id_docente),
+            id_curso INT REFERENCES Curso(id_curso),
+            semestre VARCHAR(10)
+        )",
+
+        "CREATE TABLE prerequisitos (
+            plan VARCHAR(20),
+            asignatura_id VARCHAR(20),
+            asignatura VARCHAR(255),
+            nivel INT,
+            prerequisito VARCHAR(255)
         )",
         
-        // Oferta academica Table
+        "CREATE TABLE notas (
+            id_nota SERIAL PRIMARY KEY,
+            codigo_plan VARCHAR(20),
+            plan VARCHAR(255),
+            cohorte VARCHAR(10),
+            sede VARCHAR(50),
+            run VARCHAR(20),
+            dv CHAR(1),
+            nombres VARCHAR(100),
+            apellido_paterno VARCHAR(100),
+            apellido_materno VARCHAR(100),
+            numero_alumno VARCHAR(20),
+            periodo_asignatura VARCHAR(10),
+            codigo_asignatura VARCHAR(20),
+            asignatura VARCHAR(255),
+            convocatoria VARCHAR(10),
+            calificacion VARCHAR(10),
+            nota NUMERIC(3, 1)
+        )",
+        
+        "CREATE TABLE asignaturas (
+            plan VARCHAR(20),
+            asignatura_id VARCHAR(20) PRIMARY KEY,
+            asignatura VARCHAR(255),
+            nivel INT
+        )",
+
         "CREATE TABLE Oferta_academica (
+            id_oferta SERIAL PRIMARY KEY,
             vacantes INT,
             sala VARCHAR(20),
             seccion VARCHAR(20),
-            profesor INT REFERENCES Trabajador(id_persona),
-            profesor_principal INT REFERENCES Trabajador(id_persona)
-        )",
-        
-        // Cursos mínimos Table
-        "CREATE TABLE Cursos_minimos (
-            id_min SERIAL PRIMARY KEY,
-            sigla VARCHAR(10),
-            tipo VARCHAR(20),
-            duracion INT
-        )",
-        
-        // Prerequisitos Table
-        "CREATE TABLE Prerequisitos (
-            sigla VARCHAR(10),
-            ciclo VARCHAR(10),
-            PRIMARY KEY (sigla, ciclo)
-        )",
-        
-        // Equivalentes Table
-        "CREATE TABLE Equivalentes (
-            sigla VARCHAR(10),
-            ciclo VARCHAR(10),
-            PRIMARY KEY (sigla, ciclo)
+            id_profesor INT REFERENCES docentes(id_docente),
+            id_profesor_principal INT REFERENCES docentes(id_docente)
         )"
     ];
 
@@ -127,4 +189,18 @@ if ($db) {
     echo "<script>alert('Error connecting to the database.'); window.location.href='../views/error.html';</script>";
 }
 
+require(load_prerequisitos.php);
+require(load_planeaciones.php);
+require(load_asignaturas.php);
+require(load_docentes.php);
+require(load_estudiantes.php);
+require(load_notas.php);
+require(load_planes.php);
+cargar_prerequisitos("E2_prereq.csv");
+cargar_planeacion("E2_planeacion.csv");
+cargar_asignaturas("E2_asignaturas.csv");
+cargar_docentes("E2_docentes.csv");
+cargar_estudiantes("E2_estudiantes.csv");
+cargar_notas("E2_notas.csv");
+cargar_planes("E2_planes.csv");
 ?>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reporte de Estudiantes Vigentes</title>
+    <title>Mostrar Estudiantes</title>
     <style>
         table {
             width: 100%;
@@ -15,38 +15,21 @@
         th {
             background-color: #f2f2f2;
         }
+        .scrollable {
+            height: 400px;
+            overflow-y: scroll;
+        }
     </style>
 </head>
 <body>
 
-<h2>Reporte de Estudiantes Vigentes (2024-2)</h2>
+<h2>Lista de Estudiantes</h2>
 
-<?php
-$db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
-
-if (!$db) {
-    echo "Error: Unable to open database.\n";
-    exit;
-}
-
-$query = "
-SELECT 
-   *
-FROM 
-    estudiantes e
-WHERE 
-    e.ultima_carga = '2024-2'
-";
-
-$result = pg_query($db, $query);
-
-if (!$result) {
-    echo "Error fetching data: " . pg_last_error($db) . "\n";
-    exit;
-}
-
-pg_close($db);
-?>
+<form method="GET" action="">
+    <label for="numero_alumno">Número de Alumno:</label>
+    <input type="text" id="numero_alumno" name="numero_alumno">
+    <input type="submit" value="Filtrar">
+</form>
 
 <div class="scrollable">
     <table>
@@ -70,6 +53,23 @@ pg_close($db);
         </thead>
         <tbody>
             <?php
+            $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
+
+            if (!$db) {
+                echo "Error: Unable to open database.\n";
+                exit;
+            }
+
+            $numero_alumno = isset($_GET['numero_alumno']) ? pg_escape_string($db, $_GET['numero_alumno']) : '';
+
+            if ($numero_alumno) {
+                $query = "SELECT * FROM estudiantes WHERE numero_alumno = '$numero_alumno'";
+            } else {
+                $query = "SELECT * FROM estudiantes";
+            }
+
+            $result = pg_query($db, $query);
+
             if (!$result) {
                 echo "Error fetching data: " . pg_last_error($db) . "\n";
                 exit;
