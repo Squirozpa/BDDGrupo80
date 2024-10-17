@@ -16,6 +16,11 @@ $query = "
     FROM notas
     WHERE Codigo_Asignatura = $1 AND Periodo_Asignatura = $2";
 $result = pg_query_params($db, $query, array($curso_sigla, $semestre_vigente));
+
+if (!$result) {
+    die("Error en la consulta: " . pg_last_error($db));
+}
+
 $acta_notas = [];
 $errores = [];
 
