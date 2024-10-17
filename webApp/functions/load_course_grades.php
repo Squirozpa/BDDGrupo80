@@ -15,9 +15,9 @@ $acta_notas = [];
 $errores = [];
 
 fputcsv($file, ['numero_alumno', 'primer_nombre', 'primer_apellido', 'nota', 'calificacion', 'convocatoria']);
-echo "Archivo generado exitosamente.";
 
 while ($row = pg_fetch_assoc($result)) {
+    echo "Archivo generado exitosamente.";
     fputcsv($file, [$row['codigo_plan'], $row['plan'], $row['cohorte'], $row['sede'], 
     $row['run'], $row['DV'], $row['Nombres'], $row['Apellido_Paterno'], 
     $row['Apellido_Materno'], $row['Numero_de_alumno'], $row['Periodo_Asignatura'], 
