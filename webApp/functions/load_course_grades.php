@@ -66,7 +66,6 @@ while ($row = pg_fetch_assoc($result)) {
         $alumnos_no_encontrados[] = $row;
     }
 }
-echo "Archivo CSV procesado correctamente.1";
 
 pg_close($db);
 ?>
