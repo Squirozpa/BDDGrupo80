@@ -22,4 +22,6 @@ while ($row = pg_fetch_assoc($result)) {
 
 fclose($file);
 pg_close($db);
+
+//Generar informe de notas
 ?>
