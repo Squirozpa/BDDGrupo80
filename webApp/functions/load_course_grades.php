@@ -2,7 +2,7 @@
 
 $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
-$file = fopen("../course/grades.csv", "r");
+$file = fopen("../course/grades.csv", "w");
 
 if ($file === false) {
     die("Error al abrir el archivo CSV.");
