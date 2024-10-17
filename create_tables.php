@@ -11,6 +11,23 @@ $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=
 if ($db) {
     // Array to hold SQL queries
     $sqlQueries = [
+
+        "CREATE TABLE Persona (
+            id_persona SERIAL PRIMARY KEY,
+            RUN VARCHAR(20),
+            DV CHAR(1),
+            Nombre VARCHAR(100),
+            Estamento VARCHAR(50),
+            Telefono VARCHAR(20),
+            Correo VARCHAR(100)
+        )",
+
+        "CREATE TABLE users (
+            id_persona SERIAL PRIMARY KEY,
+            email VARCHAR(50),
+            password VARCHAR(255)
+        )",
+        
         "CREATE TABLE estudiantes (
             id_estudiante SERIAL PRIMARY KEY,
             codigo_plan VARCHAR(20),
@@ -29,12 +46,6 @@ if ($db) {
             fecha_logro VARCHAR(10),
             ultima_carga VARCHAR(10)
         );",
-      
-      "CREATE TABLE users (
-            id_persona SERIAL PRIMARY KEY,
-            email VARCHAR(50),
-            password VARCHAR(255)
-        )",
         
         "CREATE TABLE docentes (
             id_docente SERIAL PRIMARY KEY,
@@ -56,6 +67,15 @@ if ($db) {
             ESTAMENTO VARCHAR(50)
         );",
         
+        "CREATE TABLE Administrativo (
+            id_administrativo SERIAL PRIMARY KEY,
+            id_persona INT REFERENCES Persona(id_persona),
+            cargo VARCHAR(50),
+            jornada VARCHAR(20)
+        )",
+        
+ 
+        
         "CREATE TABLE planes (
             codigo_plan VARCHAR(20) PRIMARY KEY,
             facultad VARCHAR(255),
@@ -65,6 +85,29 @@ if ($db) {
             sede VARCHAR(100),
             grado VARCHAR(50),
             modalidad VARCHAR(50),
+        )",
+        
+        "CREATE TABLE Curso (
+            id_curso SERIAL PRIMARY KEY,
+            sigla VARCHAR(10),
+            nombre VARCHAR(100),
+            nivel INT,
+            caracter VARCHAR(20),
+            departamento VARCHAR(100)
+        )",
+        
+        "CREATE TABLE Inscripcion (
+            id_inscripcion SERIAL PRIMARY KEY,
+            id_estudiante INT REFERENCES estudiantes(id_estudiante),
+            id_curso INT REFERENCES Curso(id_curso),
+            fecha_inscripcion DATE
+        )",
+        
+        "CREATE TABLE Imparte (
+            id_imparte SERIAL PRIMARY KEY,
+            id_profesor INT REFERENCES docentes(id_docente),
+            id_curso INT REFERENCES Curso(id_curso),
+            semestre VARCHAR(10)
             inicio_vigencia VARCHAR(50)
         )",
 

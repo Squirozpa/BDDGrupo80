@@ -30,7 +30,6 @@ function cargar_planeacion($archivo) {
             $hora_fin = pg_escape_string($db, $data[14]);
             $fecha_inicio = pg_escape_string($db, $data[15]);
             $fecha_fin = pg_escape_string($db, $data[16]);
-
             $lugar = pg_escape_string($db, $data[17]);
             $edificio = pg_escape_string($db, $data[18]);
             $profesor_principal = pg_escape_string($db, $data[19]);
