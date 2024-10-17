@@ -17,7 +17,11 @@ $errores = [];
 fputcsv($file, ['numero_alumno', 'primer_nombre', 'primer_apellido', 'nota', 'calificacion', 'convocatoria']);
 
 while ($row = pg_fetch_assoc($result)) {
-    fputcsv($file, [$row['numero_alumno'], $row['primer_nombre'], $row['primer_apellido'], $row['nota'], $row['calificacion'], $row['convocatoria']]);
+    fputcsv($file, [$row['codigo_plan'], $row['plan'], $row['cohorte'], $row['sede'], 
+    $row['run'], $row['DV'], $row['Nombres'], $row['Apellido_Paterno'], 
+    $row['Apellido_Materno'], $row['Numero_de_alumno'], $row['Periodo_Asignatura'], 
+    $row['Codigo_Asignatura'], $row['Asignatura'], $row['Convocatoria'], 
+    $row['Calificacion'], $row['Nota']]);
 }
 echo "Archivo generado exitosamente.";
 fclose($file);
