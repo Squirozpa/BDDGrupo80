@@ -10,12 +10,12 @@ if ($file === false) {
 
 $curso_sigla = "WH236032";
 $semestre_vigente = "2024-02";
-echo "Archivo generado exitosamente.";
 
 $acta_notas = [];
 $errores = [];
 
 fputcsv($file, ['numero_alumno', 'primer_nombre', 'primer_apellido', 'nota', 'calificacion', 'convocatoria']);
+echo "Archivo generado exitosamente.";
 
 while ($row = pg_fetch_assoc($result)) {
     fputcsv($file, [$row['codigo_plan'], $row['plan'], $row['cohorte'], $row['sede'], 
