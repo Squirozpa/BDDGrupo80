@@ -28,8 +28,9 @@ function cargar_planeacion($archivo) {
             $dia = pg_escape_string($db, $data[12]);
             $hora_inicio = pg_escape_string($db, $data[13]);
             $hora_fin = pg_escape_string($db, $data[14]);
-            $fecha_inicio = DateTime::createFromFormat('d/m/y', $data[15])->format('Y-m-d');
-            $fecha_fin = DateTime::createFromFormat('d/m/y', $data[16])->format('Y-m-d');
+            $fecha_inicio = pg_escape_string($db, $data[15]);
+            $fecha_fin = pg_escape_string($db, $data[16]);
+
             $lugar = pg_escape_string($db, $data[17]);
             $edificio = pg_escape_string($db, $data[18]);
             $profesor_principal = pg_escape_string($db, $data[19]);
