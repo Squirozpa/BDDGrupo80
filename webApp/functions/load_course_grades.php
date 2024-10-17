@@ -51,7 +51,7 @@ while (($data = fgetcsv($file, 1000, ",")) !== false) {
 }
 
 fclose($file);
-
+echo "Archivo CSV procesado correctamente.1";
 // Obtener los estudiantes que estaban en el curso y periodo pero no aparecen en el archivo CSV
 $query = "
     SELECT e.numero_alumno, e.run, e.primer_nombre, e.apellido_paterno, e.apellido_materno
