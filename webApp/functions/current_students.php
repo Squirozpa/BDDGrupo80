@@ -35,7 +35,7 @@ SELECT
 FROM 
     estudiantes e
 WHERE 
-    e.ultima_carga = '2024-02'
+    e.ultima_carga = '2024-2'
 ";
 
 $result = pg_query($db, $query);
