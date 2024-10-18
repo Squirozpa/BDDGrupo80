@@ -107,7 +107,7 @@ if ($db) {
             id_imparte SERIAL PRIMARY KEY,
             id_profesor INT REFERENCES docentes(id_docente),
             id_curso INT REFERENCES Curso(id_curso),
-            semestre VARCHAR(10)
+            semestre VARCHAR(10),
             inicio_vigencia VARCHAR(50)
         )",
 
