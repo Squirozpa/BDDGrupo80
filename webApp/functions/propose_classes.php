@@ -30,10 +30,9 @@
 
 <?php
 
-$db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
 function propose_classes($id_estudiante) {
-  global $db;
+  $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
 
   // Verificar si el estudiante está activo en 2024-2
   $result = pg_query_params($db, "SELECT * FROM estudiantes WHERE id_estudiante = $1 AND ultima_carga = '2024-2'", array($id_estudiante));
@@ -75,7 +74,30 @@ function propose_classes($id_estudiante) {
     $proposed_courses[] = $course_code;
   }
 
+  pg_close($db);
   return $proposed_courses;
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST['id_estudiante'])) {
+    $id_estudiante = $_POST['id_estudiante'];
+    $proposed_courses = propose_classes($id_estudiante);
+    echo "<h2>Propuesta de Clases para el estudiante $id_estudiante</h2>";
+    echo "<ul>";
+    foreach ($proposed_courses as $course) {
+      echo "<li>$course</li>";
+    }
+    echo "</ul>";
+  } else {
+    echo "Por favor, ingrese un ID de estudiante.";
+  }
+} else {
+  echo '<form method="POST">';
+  echo '<label for="id_estudiante">Ingrese el ID del estudiante:</label>';
+  echo '<input type="text" name="id_estudiante" id="id_estudiante">';
+  echo '<button type="submit">Enviar</button>';
+  echo '</form>';
 }
 
 // // Example usage
