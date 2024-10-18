@@ -93,8 +93,9 @@ foreach (array_slice($unclean_notas,1,-1) as $data) {
         "periodo" => $data[10],
         "codigo_asignatura" => $data[11],
         "asignatura" => $data[12],
-        "calificacion" => $data[13],
-        "nota" => $data[14],     
+        "convocatoria" => $data[13],
+        "calificacion" => $data[14],
+        "nota" => $data[15],     
     );
 }
 $filename = 'E2_planes.csv';
@@ -107,7 +108,6 @@ if (($handle = fopen($filename, 'r')) !== FALSE) {
     echo "Error al abrir el archivo CSV.";
 }
 foreach(array_slice($unclean_planes,1,-1) as $data)
-    $inicio = date_create_from_format('Y-m-d', $data[8]);
     $clean_planes[] = array(
         "codigo_plan" => $data[0],
         "facultad" => $data[1],
@@ -176,31 +176,37 @@ if (($handle = fopen($filename, 'r')) !== FALSE) {
     echo "Error al abrir el archivo CSV.";
 }
 
-foreach($unclean_planeacion as $data)
+foreach($unclean_planeacion as $data) {
+    if ($data[23] === '0') {
+        $data[23] = '';
+    }
+
     $clean_planeacion[] = array(
         "periodo" => $data[0],
         "sede" => $data[1],
         "facultad" => $data[2],
         "codigo_departamento" => $data[3],
         "departamento" => $data[4],
-        "asignatura" => $data[5],
-        "seccion" => $data[6],
-        "duración" => $data[7],
-        "jornada" => $data[8],
-        "cupo" => $data[9],
-        "inscritos" => $data[10],
-        "dia" => $data[11],
-        "hora_inicio" => $data[12],
-        "hora_termino" => $data[13],
-        "fecha_inicio" => $data[14],
-        "fecha_termino" => $data[15],
-        "lugar" => $data[16],
-        "edificio" => $data[17],
-        "profesor_principal" => $data[18],
-        "run" => $data[19],
-        "nombre_profesor" => $data[20]." ".$data[21]." ".$data[22],
-        "jerarquizacion" => $data[23],
+        "id_asignatura" => $data[5],
+        "asignatura" => $data[6],
+        "seccion" => $data[7],
+        "duracion" => $data[8],
+        "jornada" => $data[9],
+        "cupo" => $data[10],
+        "inscritos" => $data[11],
+        "dia" => $data[12],
+        "hora_inicio" => $data[13],
+        "hora_termino" => $data[14],
+        "fecha_inicio" => $data[15],
+        "fecha_termino" => $data[16],
+        "lugar" => $data[17],
+        "edificio" => $data[18],
+        "profesor_principal" => $data[19],
+        "run" => $data[20],
+        "nombre_profesor" => $data[21]." ".$data[22]." ".$data[23],
+        "jerarquizacion" => $data[24],
     );
+}
 
 $filename = "E2_docentes.csv";
 
