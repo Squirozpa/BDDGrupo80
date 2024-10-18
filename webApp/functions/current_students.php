@@ -85,7 +85,7 @@ pg_close($db);
                 echo "<td>" . htmlspecialchars($row['causal_bloqueo']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['run']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['dv']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['nombres']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['primer_nombre']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['primer_apellido']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['segundo_apellido']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['logro']) . "</td>";
