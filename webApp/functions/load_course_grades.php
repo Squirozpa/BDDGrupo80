@@ -8,7 +8,7 @@ if ($file === false) {
 }
 
 $curso_sigla = "WH236032";
-$semestre_vigente = "2024-2";
+$semestre_vigente = "2024-02";
 
 $acta_notas = [];
 $errores = [];
