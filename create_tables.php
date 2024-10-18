@@ -84,7 +84,7 @@ if ($db) {
             jornada VARCHAR(50),
             sede VARCHAR(100),
             grado VARCHAR(50),
-            modalidad VARCHAR(50),
+            modalidad VARCHAR(50)
         )",
         
         "CREATE TABLE Curso (
