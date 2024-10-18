@@ -49,7 +49,7 @@ function propose_classes($id_estudiante) {
   $passed_courses_array = pg_fetch_all_columns($passed_courses, 0);
 
   // Encuentra los cursos disponibles en 2025-1 con el plan de estudios del estudiante
-  $courses_2025_1 = pg_query_params($db, "SELECT asignatura_id FROM asignaturas WHERE periodo = '2025-1' AND codigo_plan = $1", array($student_plan));
+  $courses_2025_1 = pg_query_params($db, "SELECT id_asignatura FROM planeacion WHERE periodo = '2025-1' AND codigo_plan = $1", array($student_plan));
   $courses_2025_1_array = pg_fetch_all_columns($courses_2025_1, 0);
 
   // Filtrar los cursos que el estudiante puede tomar
@@ -77,6 +77,8 @@ function propose_classes($id_estudiante) {
   pg_close($db);
   return $proposed_courses;
 }
+
+// Mostrar la propuesta de clases si se envió un ID de estudiante
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
