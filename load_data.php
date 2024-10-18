@@ -1,4 +1,6 @@
 <?php
+
+
 ini_set('memory_limit', '2048M');
 $filename = 'E2_Malla.csv';  
 if (($handle = fopen($filename, 'r')) !== FALSE) {
@@ -237,5 +239,6 @@ foreach($unclean_docentes as $data)
         "cargo" => $data[14],
         "estamento" => $data[15],
     );
+
 
 ?>
