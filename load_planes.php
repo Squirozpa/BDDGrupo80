@@ -21,6 +21,7 @@ function cargar_planes($archivo) {
             $sede = pg_escape_string($db, $data[5]);
             $grado = pg_escape_string($db, $data[6]);
             $modalidad = pg_escape_string($db, $data[7]);
+
             $inicio_vigencia = pg_escape_string($db, $data[7]);
 
 
