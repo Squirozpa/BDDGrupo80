@@ -179,10 +179,6 @@ if (($handle = fopen($filename, 'r')) !== FALSE) {
 }
 
 foreach($unclean_planeacion as $data) {
-    if ($data[23] === '0') {
-        $data[23] = '';
-    }
-
     $clean_planeacion[] = array(
         "periodo" => $data[0],
         "sede" => $data[1],
@@ -205,8 +201,6 @@ foreach($unclean_planeacion as $data) {
         "edificio" => $data[18],
         "profesor_principal" => $data[19],
         "run" => $data[20],
-        "nombre_profesor" => $data[21]." ".$data[22]." ".$data[23],
-        "jerarquizacion" => $data[24],
     );
 }
 
