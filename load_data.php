@@ -168,7 +168,7 @@ foreach($unclean_alumnos as $data)
         "ultima_carga" => $data[14],
     );
 
-$filename = "E2_planeacion.csv";
+$filename = "E3_planeacion.csv";
 if (($handle = fopen($filename, 'r')) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
         $unclean_planeacion[] = $data;
