@@ -1,7 +1,7 @@
 <?php
 
 function cargar_planeacion($archivo) {
-    $db = pg_connect("host=localhost port=5432 dbname=grupo80 user=grupo80 password=grupo80");
+    $db = pg_connect("host=localhost port=5432 dbname=grupo80e3 user=grupo80e3 password=grupo80");
 
     if (!$db) {
         echo "Error: Unable to open database.\n";
@@ -35,9 +35,6 @@ function cargar_planeacion($archivo) {
             $profesor_principal = pg_escape_string($db, $data[19]);
             $run = pg_escape_string($db, $data[20]);
             $nombre_docente = pg_escape_string($db, $data[21]);
-            $primer_apellido_docente = pg_escape_string($db, $data[22]);
-            $segundo_apellido_docente = pg_escape_string($db, $data[23]);
-            $jerarquizacion = pg_escape_string($db, $data[24]);
 
             $query = "INSERT INTO planeacion (periodo, sede, facultad, codigo_depto, departamento, id_asignatura, asignatura, seccion, duracion, jornada, cupo, inscritos, dia, hora_inicio, hora_fin, fecha_inicio, fecha_fin, lugar, edificio, profesor_principal, run, nombre_docente, primer_apellido_docente, segundo_apellido_docente, jerarquizacion) 
                       VALUES ('$periodo', '$sede', '$facultad', '$codigo_depto', '$departamento', '$id_asignatura', '$asignatura', $seccion, '$duracion', '$jornada', $cupo, $inscritos, '$dia', '$hora_inicio', '$hora_fin', '$fecha_inicio', '$fecha_fin', '$lugar', '$edificio', '$profesor_principal', '$run', '$nombre_docente', '$primer_apellido_docente', '$segundo_apellido_docente', '$jerarquizacion')";
