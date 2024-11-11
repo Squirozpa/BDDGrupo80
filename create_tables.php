@@ -192,7 +192,7 @@ if ($db) {
 
 
 cargar_prerequisitos("E2_prereq.csv");
-cargar_planeacion("E2_planeacion.csv");
+cargar_planeacion("E3_planeacion.csv");
 cargar_asignaturas("E2_asignaturas.csv");
 cargar_docentes("E2_docentes.csv");
 cargar_estudiantes("E2_estudiantes.csv");
