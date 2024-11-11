@@ -6,7 +6,7 @@ require('load_docentes.php');
 require('load_estudiantes.php');
 require('load_notas.php');
 require('load_planes.php');
-$db = pg_connect("host=localhost port=5432 dbname=grupo80e3 user=grupo80 password=grupo80");
+$db = pg_connect("host=localhost port=5432 dbname=grupo80e3 user=grupo80e3 password=grupo80");
 
 if ($db) {
     // Array to hold SQL queries
