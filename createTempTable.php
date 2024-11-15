@@ -88,20 +88,28 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         echo "Datos insertados correctamente en la tabla temporal 'acta'.\n";
 
         // Mostrar el contenido de la tabla temporal
-        $query_view = "SELECT * FROM acta";
-        $result_view = pg_query($db, $query_view);
+        $query = pg_query($db, "SELECT crear_acta();");
 
-        if (!$result_view) {
-            echo "Error fetching data from acta: " . pg_last_error($db) . "\n";
+        if (!$query) {
+            echo "Error creating view: " . pg_last_error($db) . "\n";
         } else {
-            while ($row = pg_fetch_assoc($result_view)) {
-                echo "Numero Alumno: " . $row['numero_alumno'] . "\n";
-                echo "RUN: " . $row['run'] . "\n";
-                echo "Sigla: " . $row['sigla'] . "\n";
-                echo "Seccion: " . $row['seccion'] . "\n";
-                echo "Periodo: " . $row['periodo'] . "\n";
-                echo "Nota: " . $row['nota'] . "\n";
-                echo "-------------------------\n";
+            // Mostrar el contenido de la vista
+            $query_view = pg_query($db, "SELECT * FROM acta_notas");
+
+            if (!$query_view) {
+                echo "Error fetching data from acta_notas: " . pg_last_error($db) . "\n";
+            } else {
+                while ($row = pg_fetch_assoc($query_view)) {
+                    echo "Numero Alumno: " . $row['numero_alumno'] . "\n";
+                    echo "RUN: " . $row['run'] . "\n";
+                    echo "Curso: " . $row['curso'] . "\n";
+                    echo "Seccion: " . $row['seccion'] . "\n";
+                    echo "Periodo: " . $row['periodo'] . "\n";
+                    echo "Nombre Estudiante: " . $row['nombre_estudiante'] . "\n";
+                    echo "Nombre Profesor: " . $row['nombre_profesor'] . "\n";
+                    echo "Nota Final: " . $row['nota_final'] . "\n";
+                    echo "-------------------------\n";
+                }
             }
         }
     }
