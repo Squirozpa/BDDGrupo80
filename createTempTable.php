@@ -55,7 +55,10 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         }
 
         $nota_final = str_replace(",", ".", $nota_final);
-        if ($nota_final == "NP") {
+        if ($nota_final == "NP" ) {
+            $nota_final = 1.0;
+        }
+        if ($nota_final == "P") {
             $nota_final = 1.0;
         }
 
