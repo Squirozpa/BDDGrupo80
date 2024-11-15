@@ -10,6 +10,7 @@ BEGIN
         a.sigla AS curso,
         a.seccion,
         a.periodo
+        a.nota_final
     FROM acta a;
 END;
 $$ LANGUAGE plpgsql;
