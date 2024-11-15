@@ -10,6 +10,6 @@ BEGIN
         a.sigla AS curso,
         a.seccion,
         a.periodo
-    FROM acta a
+    FROM acta a;
 END;
 $$ LANGUAGE plpgsql;
