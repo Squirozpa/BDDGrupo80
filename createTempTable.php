@@ -109,4 +109,6 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
     echo "Error: Unable to open file $archivo.\n";
 }
 
+$query = pg_query($db, "SELECT crear_acta();");
+$query = pg_query("SELECT * FROM acta_notas;")
 ?>
