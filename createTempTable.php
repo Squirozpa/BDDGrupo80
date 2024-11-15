@@ -56,14 +56,14 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         }
 
         // Validar la nota
-        if (!preg_match('/^(?:[1-7](?:\.[0-9])?|P|NP|EX|A|R|nulo)$/', $nota)) {
+        if (!preg_match('/^(?:[1-7](?:\.[0-9])?|P|NP|EX|A|R|nulo)$/', $nota_final)) {
             echo "Nota de $numero_alumno contiene un valor erróneo, corríjalo manualmente en el archivo de origen y vuelva a cargar.\n";
             $error = true;
             break;
         }
 
         // Insertar en la tabla temporal
-        $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', $'run', '$sigla',$'seccion', '$periodo', '$nota')";
+        $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', $'run', '$sigla',$'seccion', '$periodo', '$nota_final')";
         $result = pg_query($db, $insert_query);
 
         if (!$result) {
