@@ -55,6 +55,9 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         }
 
         $nota_final = str_replace(",", ".", $nota_final);
+        if ($nota_final == "NP") {
+            $nota_final = 1.0;
+        }
 
         // Insertar en la tabla temporal
         $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', $nota_final)";
