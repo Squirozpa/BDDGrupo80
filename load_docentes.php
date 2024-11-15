@@ -34,7 +34,7 @@ function cargar_docentes($archivo) {
                       VALUES ('$RUN', '$Nombre', '$Apellido_P', '$telefono', '$email_personal', '$email_institucional', '$DEDICACION', '$CONTRATO', '$DIURNO', '$VESPERTINO', '$SEDE', '$CARRERA', '$GRADO_ACADEMICO', '$JERARQUIA', '$CARGO', '$ESTAMENTO')";
             $result = pg_query($db, $query);
 
-            $query2 = "INSERT INTO persona (RUN, Nombre, Apellido_P) 
+            $query2 = "INSERT INTO persona (run, nombre, apellido) 
                       VALUES ('$RUN', '$Nombre', '$Apellido_P')";
             $result2 = pg_query($db, $query2);
 
