@@ -34,8 +34,17 @@ function cargar_docentes($archivo) {
                       VALUES ('$RUN', '$Nombre', '$Apellido_P', '$telefono', '$email_personal', '$email_institucional', '$DEDICACION', '$CONTRATO', '$DIURNO', '$VESPERTINO', '$SEDE', '$CARRERA', '$GRADO_ACADEMICO', '$JERARQUIA', '$CARGO', '$ESTAMENTO')";
             $result = pg_query($db, $query);
 
+            $query2 = "INSERT INTO personas (RUN, Nombre, Apellido_P) 
+                      VALUES ('$RUN', '$Nombre', '$Apellido_P')";
+            $result2 = pg_query($db, $query2);
+
             if (!$result) {
                 echo "Error inserting data into docentes: " . pg_last_error($db) . "\n";
+                file_put_contents("errores.log", pg_last_error($db) . "\n", FILE_APPEND);
+            }
+
+            if (!$result2) {
+                echo "Error inserting data into personas: " . pg_last_error($db) . "\n";
                 file_put_contents("errores.log", pg_last_error($db) . "\n", FILE_APPEND);
             }
         }
