@@ -33,7 +33,7 @@ function cargar_estudiantes($archivo) {
                       VALUES ('$codigo_plan', '$carrera', '$cohorte', '$numero_alumno', '$bloqueo', '$causal_bloqueo', '$run', '$dv', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$logro', '$fecha_logro', '$ultima_carga')";
             $result = pg_query($db, $query);
 
-            $query2 = "INSERT INTO estudiantes (run, primer_nombre, primer_apellido) 
+            $query2 = "INSERT INTO persona (run, primer_nombre, primer_apellido) 
                       VALUES ('$run', '$primer_nombre', '$primer_apellido')";
             $result2 = pg_query($db, $query2);
 

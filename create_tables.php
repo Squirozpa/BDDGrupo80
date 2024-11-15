@@ -12,7 +12,7 @@ if ($db) {
     // Array to hold SQL queries
     $sqlQueries = [
 
-        "CREATE TABLE Personas (
+        "CREATE TABLE Persona (
             id_persona SERIAL PRIMARY KEY,
             RUN VARCHAR(20),
             Nombre VARCHAR(100),
