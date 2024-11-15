@@ -21,13 +21,13 @@ while ($row = pg_fetch_assoc($result_profes)) {
     $nombre = pg_escape_string($db, $row['nombre']);
     $apellido1 = pg_escape_string($db, $row['apellido1']);
 
-    // Verificar si la persona ya existe en la tabla personas
-    $query_check = "SELECT * FROM personas WHERE run = '$run'";
+    // Verificar si la persona ya existe en la tabla persona
+    $query_check = "SELECT * FROM persona WHERE run = '$run'";
     $result_check = pg_query($db, $query_check);
 
     if (pg_num_rows($result_check) > 0) {
         // Si existe, actualizar los datos
-        $query_update = "UPDATE personas SET nombre = '$nombre', apellido = '$apellido1' WHERE run = '$run'";
+        $query_update = "UPDATE persona SET nombre = '$nombre', apellido = '$apellido1' WHERE run = '$run'";
         $result_update = pg_query($db, $query_update);
 
         if ($result_update) {
@@ -37,7 +37,7 @@ while ($row = pg_fetch_assoc($result_profes)) {
         }
     } else {
         // Si no existe, insertar los datos
-        $query_insert = "INSERT INTO personas (run, nombre, apellido) VALUES ('$run', '$nombre', '$apellido1')";
+        $query_insert = "INSERT INTO persona (run, nombre, apellido) VALUES ('$run', '$nombre', '$apellido1')";
         $result_insert = pg_query($db, $query_insert);
 
         if ($result_insert) {
