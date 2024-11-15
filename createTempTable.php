@@ -56,7 +56,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         }
 
         // Validar la nota
-        if (!preg_match('/^(?:[1-7](?:\.[0-9])?|P|NP|EX|A|R|nulo)$/', $nota_final)) {
+        if (!preg_match('/^(?:[0-7](?:\.[0-9])?|P|NP|EX|A|R|nulo)$/', $nota_final)) {
             echo "Nota de $numero_alumno contiene un valor erróneo, corríjalo manualmente en el archivo de origen y vuelva a cargar.\n";
             $error = true;
             break;
