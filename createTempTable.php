@@ -37,6 +37,10 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         $oportunidadDIC = pg_escape_string($db, $data[5]);
         $oportunidadMAR = pg_escape_string($db, $data[6]);
 
+        if ($numero_alumno == "") {
+            continue;
+        } 
+
         if ($oportunidadDIC == "") {
             $oportunidadDIC = 0;
         } 
