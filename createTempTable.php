@@ -38,10 +38,21 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         $oportunidadDIC = pg_escape_string($db, $data[5]);
         $oportunidadMAR = pg_escape_string($db, $data[6]);
 
+        if ($oportunidadDIC == "") {
+            $oportunidadDIC = 0;
+        } 
+        if ($oportunidadMAR== "") {
+            $oportunidadMAR = 0;
+        } 
+
         if ($oportunidadDIC >= 4.0) {
             $nota_final = $oportunidadDIC;
         } else {
-            $nota_final = $oportunidadMAR;
+            if ($oportunidadMAR == 0) {
+                $nota_final = $oportunidadDIC;
+            } else {
+                $nota_final = $oportunidadMAR;
+            }
         }
 
         // Validar la nota
