@@ -8,7 +8,7 @@ if (!$db || !$db_profes) {
 }
 
 // Obtener datos de la tabla profesores
-$query_profes = "SELECT run, nombre, apellido1 FROM profesores";
+$query_profes = "SELECT run, nombre, apellido1, apellido2 FROM profesores";
 $result_profes = pg_query($db_profes, $query_profes);
 
 if (!$result_profes) {
@@ -20,24 +20,31 @@ while ($row = pg_fetch_assoc($result_profes)) {
     $run = pg_escape_string($db, $row['run']);
     $nombre = pg_escape_string($db, $row['nombre']);
     $apellido1 = pg_escape_string($db, $row['apellido1']);
+    $apellido2 = pg_escape_string($db, $row['apellido2']);
+    $apellido_completo = "$apellido1 $apellido2";
 
     // Verificar si la persona ya existe en la tabla persona
     $query_check = "SELECT * FROM persona WHERE run = '$run'";
     $result_check = pg_query($db, $query_check);
 
     if (pg_num_rows($result_check) > 0) {
-        // Si existe, actualizar los datos
-        $query_update = "UPDATE persona SET nombre = '$nombre', apellido = '$apellido1' WHERE run = '$run'";
-        $result_update = pg_query($db, $query_update);
-
-        if ($result_update) {
-            echo "Registro actualizado para RUN: $run\n";
+        $row_check = pg_fetch_assoc($result_check);
+        if ($row_check['nombre'] == $nombre && $row_check['apellido'] == $apellido_completo) {
+            echo "Registro ya está actualizado para RUN: $run\n";
         } else {
-            echo "Error updating data for RUN: $run - " . pg_last_error($db) . "\n";
+            // Si existe, actualizar los datos
+            $query_update = "UPDATE persona SET nombre = '$nombre', apellido = '$apellido_completo' WHERE run = '$run'";
+            $result_update = pg_query($db, $query_update);
+
+            if ($result_update) {
+                echo "Registro actualizado para RUN: $run\n";
+            } else {
+                echo "Error updating data for RUN: $run - " . pg_last_error($db) . "\n";
+            }
         }
     } else {
         // Si no existe, insertar los datos
-        $query_insert = "INSERT INTO persona (run, nombre, apellido) VALUES ('$run', '$nombre', '$apellido1')";
+        $query_insert = "INSERT INTO persona (run, nombre, apellido) VALUES ('$run', '$nombre', '$apellido_completo')";
         $result_insert = pg_query($db, $query_insert);
 
         if ($result_insert) {
