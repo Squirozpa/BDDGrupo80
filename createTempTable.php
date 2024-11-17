@@ -19,7 +19,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         sigla VARCHAR(10),
         seccion VARCHAR(10),
         periodo VARCHAR(10),
-        nota DECIMAL(4, 1)
+        nota VARCHAR(10)
     )";
     pg_query($db, $create_table_query);
 
