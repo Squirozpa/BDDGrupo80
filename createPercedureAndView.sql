@@ -9,7 +9,7 @@ BEGIN
         a.seccion,
         a.periodo,
         e.primer_nombre AS nombre_estudiante,
-        a.nota_final
+        a.nota
     FROM acta a
     LEFT JOIN estudiantes e ON a.numero_alumno = e.numero_alumno;
 END;
