@@ -32,7 +32,7 @@
 
 <h2>Acta de Notas</h2>
 <?php
-$db = pg_connect("host=localhost port=5432 dbname=grupo80e3 user=grupo80 password=grupo80");
+$db = pg_connect("host=localhost port=5432 dbname=grupo80e3 user=grupo80e3 password=grupo80");
 
 if (!$db) {
     echo "Error: Unable to open database.\n";
