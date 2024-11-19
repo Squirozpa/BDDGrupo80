@@ -66,6 +66,10 @@ while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     $valid_codigo_plan = validateCodigoPlan($codigo_plan);
     $valid_plan = validatePlan($plan);
     $valid_cohorte = validateCohorte($cohorte);
+    if ($valid_cohorte) {
+        $cohorte = fixCohorte($cohorte);
+        $valid_cohorte = validateCohorte($cohorte);
+    }
     $valid_sede = validateSede($sede);
     $valid_run = validateRun($run);
     $valid_dv = validateDv($dv);
@@ -74,6 +78,11 @@ while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     $valid_apellido_materno = validateNombre($apellido_materno);
     $valid_numero_alumno = validateNumeroAlumno($numero_alumno);
     $valid_periodo_asignatura = validateFecha($periodo_asignatura);
+    if ($valid_periodo_asignatura) {
+        $periodo_asignatura = fixFecha($periodo_asignatura);
+        $valid_periodo_asignatura = validateFecha($periodo_asignatura);
+    }
+
     $valid_codigo_asignatura = validateCodigoAsignatura($codigo_asignatura);
     $valid_asignatura = validateAsignatura($asignatura);
     $valid_calificacion = validateCalificacion($calificacion);
