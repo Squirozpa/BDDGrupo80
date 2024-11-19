@@ -39,9 +39,3 @@ a:hover {
     background-color: #007BFF;
     color: white;
 }
-
-.divider {
-    height: 1px;
-    background-color: green;
-    margin: 20px 0;
-}
