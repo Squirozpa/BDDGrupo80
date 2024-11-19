@@ -75,20 +75,6 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
             $error = true;
             break;
         }
-        $check_query = "SELECT column_name 
-            FROM information_schema.columns 
-            WHERE table_name = 'acta'";
-        $check_result = pg_query($db, $check_query);
-        if (!$check_result) {
-            echo "Error checking data for numero_alumno: $numero_alumno - " . pg_last_error($db) . "\n";
-            $error = true;
-            break;
-        } else {
-            echo "Column names in acta_notas:\n";
-            while ($row = pg_fetch_assoc($check_result)) {
-                echo $row['column_name'] . "\n";
-            }
-        }
     }
 
     fclose($handle);
