@@ -88,7 +88,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         echo "Datos insertados correctamente en la tabla temporal 'acta'.\n";
 
         // Mostrar el contenido de la tabla temporal
-        $query = pg_query($db, "SELECT crear_acta();");
+        $query = pg_query($db, "crear_acta();");
 
         if (!$query) {
             echo "Error creating view: " . pg_last_error($db) . "\n";
