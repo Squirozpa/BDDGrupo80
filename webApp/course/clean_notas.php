@@ -1,6 +1,6 @@
 <?php
 
-include 'load_data.php';
+include '../../load_data.php';
 ini_set('memory_limit', '20248M');
 
 function validateCodigoPlan($codigo_plan){
