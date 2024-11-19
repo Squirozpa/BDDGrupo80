@@ -28,7 +28,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include '../../../clean_notas.php'; // Incluir las funciones de validación
+include '../../../../clean_notas.php'; // Incluir las funciones de validación
 
 $db = pg_connect("host=localhost port=5432 dbname=grupo80e3 user=grupo80e3 password=grupo80");
 
