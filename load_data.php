@@ -2,7 +2,7 @@
 
 
 ini_set('memory_limit', '2048M');
-$filename = 'E2_Malla.csv';  
+$filename = '../../E2_Malla.csv';  
 if (($handle = fopen($filename, 'r')) !== FALSE) {
     
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
