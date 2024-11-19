@@ -75,7 +75,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
             $error = true;
             break;
         }
-        $check_query = "SELECT SELECT column_name 
+        $check_query = "SELECT column_name 
             FROM information_schema.columns 
             WHERE table_name = 'acta'";
         $check_result = pg_query($db, $check_query);
