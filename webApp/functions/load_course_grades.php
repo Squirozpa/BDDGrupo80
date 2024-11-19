@@ -28,6 +28,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+include 'clean_notas.php'; // Incluir las funciones de validación
+
 $db = pg_connect("host=localhost port=5432 dbname=grupo80e3 user=grupo80e3 password=grupo80");
 
 // Verificar si se ha subido un archivo
@@ -60,53 +62,67 @@ while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     // Guardar los números de alumno del CSV para verificar después
     $alumnos_csv[] = $numero_alumno;
 
-    // Validar el número de alumno
-    if (!is_numeric($numero_alumno)) {
+    // Validar los datos
+    $valid_codigo_plan = validateCodigoPlan($codigo_plan);
+    $valid_plan = validatePlan($plan);
+    $valid_cohorte = validateCohorte($cohorte);
+    $valid_sede = validateSede($sede);
+    $valid_run = validateRun($run);
+    $valid_dv = validateDv($dv);
+    $valid_nombres = validateNombre($nombres);
+    $valid_apellido_paterno = validateNombre($apellido_paterno);
+    $valid_apellido_materno = validateNombre($apellido_materno);
+    $valid_numero_alumno = validateNumeroAlumno($numero_alumno);
+    $valid_periodo_asignatura = validateFecha($periodo_asignatura);
+    $valid_codigo_asignatura = validateCodigoAsignatura($codigo_asignatura);
+    $valid_asignatura = validateAsignatura($asignatura);
+    $valid_calificacion = validateCalificacion($calificacion);
+    $valid_nota = validateNota($nota);
+
+    if ($valid_codigo_plan && $valid_plan && $valid_cohorte && $valid_sede && $valid_run && $valid_dv && $valid_nombres && $valid_apellido_paterno && $valid_apellido_materno && $valid_numero_alumno && $valid_periodo_asignatura && $valid_codigo_asignatura && $valid_asignatura && $valid_calificacion && $valid_nota) {
+        // Si todos los datos son válidos, preparar los datos para la inserción
+        $acta_notas[] = [
+            'codigo_plan' => $codigo_plan,
+            'plan' => $plan,
+            'cohorte' => $cohorte,
+            'sede' => $sede,
+            'run' => $run,
+            'dv' => $dv,
+            'nombres' => $nombres,
+            'apellido_paterno' => $apellido_paterno,
+            'apellido_materno' => $apellido_materno,
+            'numero_alumno' => $numero_alumno,
+            'periodo_asignatura' => $periodo_asignatura,
+            'codigo_asignatura' => $codigo_asignatura,
+            'asignatura' => $asignatura,
+            'convocatoria' => $convocatoria,
+            'calificacion' => $calificacion,
+            'nota' => $nota
+        ];
+    } else {
+        // Si hay errores, agregarlos a la lista de errores
+        $errors = [];
+        if (!$valid_codigo_plan) $errors[] = "Codigo Plan: {$codigo_plan}";
+        if (!$valid_plan) $errors[] = "Plan: {$plan}";
+        if (!$valid_cohorte) $errors[] = "Cohorte: {$cohorte}";
+        if (!$valid_sede) $errors[] = "Sede: {$sede}";
+        if (!$valid_run) $errors[] = "RUN: {$run}";
+        if (!$valid_dv) $errors[] = "DV: {$dv}";
+        if (!$valid_nombres) $errors[] = "Nombres: {$nombres}";
+        if (!$valid_apellido_paterno) $errors[] = "Apellido Paterno: {$apellido_paterno}";
+        if (!$valid_apellido_materno) $errors[] = "Apellido Materno: {$apellido_materno}";
+        if (!$valid_numero_alumno) $errors[] = "Numero Alumno: {$numero_alumno}";
+        if (!$valid_periodo_asignatura) $errors[] = "Periodo Asignatura: {$periodo_asignatura}";
+        if (!$valid_codigo_asignatura) $errors[] = "Codigo Asignatura: {$codigo_asignatura}";
+        if (!$valid_asignatura) $errors[] = "Asignatura: {$asignatura}";
+        if (!$valid_calificacion) $errors[] = "Calificacion: {$calificacion}";
+        if (!$valid_nota) $errors[] = "Nota: {$nota}";
+
         $errores[] = [
             'numero_alumno' => $numero_alumno,
-            'error' => 'Número de alumno no es numérico'
+            'errors' => $errors
         ];
-        continue;
     }
-
-    // Validar la nota
-    if (!is_numeric($nota) || $nota < 1.0 || $nota > 7.0) {
-        $errores[] = [
-            'numero_alumno' => $numero_alumno,
-            'error' => 'Nota fuera del rango permitido (1.0 - 7.0)'
-        ];
-        continue;
-    }
-
-    // Validar la calificación
-    $calificaciones_validas = ['SO', 'MB', 'B', 'SU', 'I', 'M', 'MM', 'P', 'NP', 'EX', 'A', 'R'];
-    if (!in_array($calificacion, $calificaciones_validas)) {
-        $errores[] = [
-            'numero_alumno' => $numero_alumno,
-            'error' => 'Calificación no válida'
-        ];
-        continue;
-    }
-
-    // Si no hay errores, preparar los datos para la inserción
-    $acta_notas[] = [
-        'codigo_plan' => $codigo_plan,
-        'plan' => $plan,
-        'cohorte' => $cohorte,
-        'sede' => $sede,
-        'run' => $run,
-        'dv' => $dv,
-        'nombres' => $nombres,
-        'apellido_paterno' => $apellido_paterno,
-        'apellido_materno' => $apellido_materno,
-        'numero_alumno' => $numero_alumno,
-        'periodo_asignatura' => $periodo_asignatura,
-        'codigo_asignatura' => $codigo_asignatura,
-        'asignatura' => $asignatura,
-        'convocatoria' => $convocatoria,
-        'calificacion' => $calificacion,
-        'nota' => $nota
-    ];
 }
 
 fclose($file_handle);
