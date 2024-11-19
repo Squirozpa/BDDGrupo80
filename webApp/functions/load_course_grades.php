@@ -58,7 +58,8 @@ fgetcsv($file_handle);
 
 while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     list($codigo_plan, $plan, $cohorte, $sede, $run, $dv, $nombres, $apellido_paterno, $apellido_materno, $numero_alumno, $periodo_asignatura, $codigo_asignatura, $asignatura, $convocatoria, $calificacion, $nota) = $data;
-
+    $cohorte = fixFecha($cohorte);
+    $periodo_asignatura = fixFecha($periodo_asignatura);
     // Guardar los números de alumno del CSV para verificar después
     $alumnos_csv[] = $numero_alumno;
 
@@ -66,7 +67,7 @@ while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     $valid_codigo_plan = validateCodigoPlan($codigo_plan);
     $valid_plan = validatePlan($plan);
     $valid_cohorte = validateCohorte($cohorte);
-    if ($valid_cohorte) {
+    if (!$valid_cohorte) {
         $cohorte = fixCohorte($cohorte);
         $valid_cohorte = validateCohorte($cohorte);
     }
@@ -78,7 +79,7 @@ while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     $valid_apellido_materno = validateNombre($apellido_materno);
     $valid_numero_alumno = validateNumeroAlumno($numero_alumno);
     $valid_periodo_asignatura = validateFecha($periodo_asignatura);
-    if ($valid_periodo_asignatura) {
+    if (!$valid_periodo_asignatura) {
         $periodo_asignatura = fixFecha($periodo_asignatura);
         $valid_periodo_asignatura = validateFecha($periodo_asignatura);
     }
