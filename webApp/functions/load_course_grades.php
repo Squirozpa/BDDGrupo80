@@ -68,7 +68,7 @@ while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     $valid_plan = validatePlan($plan);
     $valid_cohorte = validateCohorte($cohorte);
     if (!$valid_cohorte) {
-        $cohorte = fixCohorte($cohorte);
+        $cohorte = fixFecha($cohorte);
         $valid_cohorte = validateCohorte($cohorte);
     }
     $valid_sede = validateSede($sede);
