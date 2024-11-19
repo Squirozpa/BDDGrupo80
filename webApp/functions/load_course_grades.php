@@ -66,10 +66,10 @@ while (($data = fgetcsv($file_handle, 1000, ",")) !== false) {
     // Validar los datos
     $valid_codigo_plan = validateCodigoPlan($codigo_plan);
     $valid_plan = validatePlan($plan);
-    $valid_cohorte = validateCohorte($cohorte);
+    $valid_cohorte = validateFecha($cohorte);
     if (!$valid_cohorte) {
         $cohorte = fixFecha($cohorte);
-        $valid_cohorte = validateCohorte($cohorte);
+        $valid_cohorte = validateFecha($cohorte);
     }
     $valid_sede = validateSede($sede);
     $valid_run = validateRun($run);
