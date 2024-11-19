@@ -2,7 +2,7 @@
 
 
 ini_set('memory_limit', '2048M');
-$filename = 'E2_Malla.csv';  
+$filename = '../../E2_Malla.csv';  
 if (($handle = fopen($filename, 'r')) !== FALSE) {
     
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -43,7 +43,7 @@ foreach ($clean_malla as $key => $row) {
 
 }
 
-$filename = 'E2_prereq.csv';
+$filename = '../../E2_prereq.csv';
 if (($handle = fopen($filename, 'r')) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
         $unclean_prereq[] = $data;
