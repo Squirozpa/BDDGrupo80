@@ -1,3 +1,4 @@
+-- Crear el Stored Procedure
 CREATE OR REPLACE FUNCTION crear_acta()
 RETURNS VOID AS $$
 BEGIN
@@ -9,12 +10,8 @@ BEGIN
         a.sigla AS curso,
         a.seccion,
         a.periodo,
-        e.primer_nombre AS nombre_estudiante,
-        a.nota
+        a.nota,
     FROM acta a
     LEFT JOIN estudiantes e ON a.numero_alumno = e.numero_alumno;
-
-    -- Verificar los datos insertados
-    PERFORM * FROM acta_notas;
 END;
 $$ LANGUAGE plpgsql;
