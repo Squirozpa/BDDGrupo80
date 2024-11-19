@@ -75,6 +75,13 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
             $error = true;
             break;
         }
+        $check_query = "SELECT * FROM acta";
+        $check_result = pg_query($db, $check_query);
+        if (!$check_result) {
+            echo "Error checking data for numero_alumno: $numero_alumno - " . pg_last_error($db) . "\n";
+            $error = true;
+            break;
+        }
     }
 
     fclose($handle);
