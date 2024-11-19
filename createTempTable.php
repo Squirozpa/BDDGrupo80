@@ -75,21 +75,18 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
             $error = true;
             break;
         }
-        $check_query = "SELECT * FROM acta";
+        $check_query = "SELECT SELECT column_name 
+            FROM information_schema.columns 
+            WHERE table_name = 'acta'";
         $check_result = pg_query($db, $check_query);
         if (!$check_result) {
             echo "Error checking data for numero_alumno: $numero_alumno - " . pg_last_error($db) . "\n";
             $error = true;
             break;
         } else {
+            echo "Column names in acta_notas:\n";
             while ($row = pg_fetch_assoc($check_result)) {
-                echo "Numero Alumno: " . $row['numero_alumno'] . "\n";
-                echo "RUN: " . $row['run'] . "\n";
-                echo "Sigla: " . $row['sigla'] . "\n";
-                echo "Seccion: " . $row['seccion'] . "\n";
-                echo "Periodo: " . $row['periodo'] . "\n";
-                echo "Nota: " . $row['nota'] . "\n";
-                echo "-------------------------\n";
+                echo $row['column_name'] . "\n";
             }
         }
     }
