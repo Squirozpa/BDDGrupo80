@@ -82,6 +82,16 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
             echo "Error checking data for numero_alumno: $numero_alumno - " . pg_last_error($db) . "\n";
             $error = true;
             break;
+        } else {
+            while ($row = pg_fetch_assoc($check_result)) {
+                echo "Numero Alumno: " . $row['numero_alumno'] . "\n";
+                echo "RUN: " . $row['run'] . "\n";
+                echo "Sigla: " . $row['sigla'] . "\n";
+                echo "Seccion: " . $row['seccion'] . "\n";
+                echo "Periodo: " . $row['periodo'] . "\n";
+                echo "Nota: " . $row['nota'] . "\n";
+                echo "-------------------------\n";
+            }
         }
     }
 
