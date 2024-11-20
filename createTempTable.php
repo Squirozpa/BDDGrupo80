@@ -102,13 +102,19 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
                 while ($row = pg_fetch_assoc($query_view)) {
                     $nota_query = "SELECT nota FROM acta WHERE run = '$run' AND sigla = '$sigla' AND seccion = '$seccion' AND periodo = '$periodo'";
                     $nota = pg_query($db, $nota_query);
-                    echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
-                    echo "RUN: " . $row['run'] . "<br>";
-                    echo "Curso: " . $row['curso'] . "<br>";
-                    echo "Seccion: " . $row['seccion'] . "<br>";
-                    echo "Periodo: " . $row['periodo'] . "<br>";
-                    echo "Nota Final: " . $nota . "<br>";
-                    echo "-------------------------<br>";
+                    if (!$nota) {
+                        echo "Error fetching data from acta: " . pg_last_error($db) . "\n";
+                    } else {
+                        $nota = pg_fetch_assoc($nota);
+                        $nota = $nota['nota'];
+                        echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
+                        echo "RUN: " . $row['run'] . "<br>";
+                        echo "Curso: " . $row['curso'] . "<br>";
+                        echo "Seccion: " . $row['seccion'] . "<br>";
+                        echo "Periodo: " . $row['periodo'] . "<br>";
+                        echo "Nota Final: " . $nota . "<br>";
+                        echo "-------------------------<br>";
+                    }
                 }
             }
         }
