@@ -59,12 +59,6 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         }
 
         $nota_final = str_replace(",", ".", $nota_final);
-        if ($nota_final == "NP" ) {
-            $nota_final = 1.0;
-        }
-        if ($nota_final == "P") {
-            $nota_final = 1.0;
-        }
 
         // Insertar en la tabla temporal
         $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', '$nota_final')";
@@ -107,7 +101,6 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
                     $check_row = pg_fetch_assoc($check_res);
                     $nota = $check_row['nota'];
                     echo $check . "\n";
-
                     echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
                     echo "RUN: " . $row['run'] . "<br>";
                     echo "Curso: " . $row['curso'] . "<br>";
