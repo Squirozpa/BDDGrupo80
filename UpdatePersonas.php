@@ -30,7 +30,7 @@ while ($row = pg_fetch_assoc($result_profes)) {
     if (pg_num_rows($result_check) > 0) {
         $row_check = pg_fetch_assoc($result_check);
         if ($row_check['nombre'] == $nombre && $row_check['apellido'] == $apellido_completo) {
-            echo "Registro ya está actualizado para RUN: $run\n";
+            echo "Registro ya está actualizado para RUN: $run" . "<br>";
         } else {
             // Si existe, actualizar los datos
             $query_update = "UPDATE persona SET nombre = '$nombre', apellido = '$apellido_completo' WHERE run = '$run'";
