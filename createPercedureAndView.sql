@@ -1,24 +1,23 @@
 CREATE OR REPLACE FUNCTION crear_acta()
 RETURNS VOID AS $$
 BEGIN
+        CREATE OR REPLACE VIEW vista_acta AS
+        SELECT numero_alumno, run, curso, seccion, periodo, nota
+        FROM acta;
 
-    $query_view = pg_query($db, "SELECT * FROM acta");
+        -- Function to create the view
+        CREATE OR REPLACE FUNCTION crear_acta()
+        RETURNS VOID AS $$
+        BEGIN
+            -- Drop the view if it exists
+            IF EXISTS (SELECT 1 FROM pg_views WHERE viewname = 'vista_acta') THEN
+                EXECUTE 'DROP VIEW vista_acta';
+            END IF;
 
-    if (!$query_view) {
-        echo "Error fetching data from acta_notas: " . pg_last_error($db) . "\n";
-    } else {
-        while ($row = pg_fetch_assoc($query_view)) {
-                $nota = pg_fetch_assoc($nota);
-                $nota = $nota['nota'];
-                echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
-                echo "RUN: " . $row['run'] . "<br>";
-                echo "Curso: " . $row['curso'] . "<br>";
-                echo "Seccion: " . $row['seccion'] . "<br>";
-                echo "Periodo: " . $row['periodo'] . "<br>";
-                echo "Nota Final: " . $row['nota'] . "<br>";
-                echo "-------------------------<br>";
-            
-        }
-    }
+            -- Create the view
+            EXECUTE 'CREATE VIEW vista_acta AS SELECT numero_alumno, run, curso, seccion, periodo, nota FROM acta';
+        END;
+        $$ LANGUAGE plpgsql;
+    
 END;
 $$ LANGUAGE plpgsql;
