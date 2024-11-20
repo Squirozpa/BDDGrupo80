@@ -100,7 +100,8 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
                 echo "Error fetching data from acta_notas: " . pg_last_error($db) . "\n";
             } else {
                 while ($row = pg_fetch_assoc($query_view)) {
-                    $nota = "SELECT nota FROM acta WHERE run = '$run' AND sigla = '$sigla' AND seccion = '$seccion' AND periodo = '$periodo'";
+                    $nota_query = "SELECT nota FROM acta WHERE run = '$run' AND sigla = '$sigla' AND seccion = '$seccion' AND periodo = '$periodo'";
+                    $nota = pg_query($db, $nota_query);
                     echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
                     echo "RUN: " . $row['run'] . "<br>";
                     echo "Curso: " . $row['curso'] . "<br>";
