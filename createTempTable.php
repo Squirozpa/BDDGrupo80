@@ -70,7 +70,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', '$nota_final')";
         $result = pg_query($db, $insert_query);
 
-        $check_query = "SELECT nota FROM acta WHERE numero_alumno = '$numero_alumno'";
+        $check_query = "SELECT * FROM acta WHERE numero_alumno = '$numero_alumno'";
         $check_res = pg_query($db, $check_query);
         $check_row = pg_fetch_assoc($check_res);
         $check = $check_row['nota'];
