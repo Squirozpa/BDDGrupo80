@@ -19,7 +19,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         sigla VARCHAR(10),
         seccion VARCHAR(10),
         periodo VARCHAR(10),
-        nota VARCHAR(10)
+        nota FLOAT(1)
     )";
     pg_query($db, $create_table_query);
 
@@ -67,7 +67,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         }
 
         // Insertar en la tabla temporal
-        $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', '$nota_final')";
+        $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', $nota_final)";
         $result = pg_query($db, $insert_query);
 
         if (!$result) {
@@ -85,7 +85,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
     } else {
         // Confirmar la transacción
         pg_query($db, "COMMIT");
-        echo "Datos insertados correctamente en la tabla temporal 'acta'.\n";
+        echo "Datos insertados correctamente en la tabla temporal 'acta'<br>";
 
         // Mostrar el contenido de la tabla temporal
         $query = pg_query($db, "SELECT crear_acta();");
@@ -100,13 +100,13 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
                 echo "Error fetching data from acta_notas: " . pg_last_error($db) . "\n";
             } else {
                 while ($row = pg_fetch_assoc($query_view)) {
-                    echo "Numero Alumno: " . $row['numero_alumno'] . "\n";
-                    echo "RUN: " . $row['run'] . "\n";
-                    echo "Curso: " . $row['curso'] . "\n";
-                    echo "Seccion: " . $row['seccion'] . "\n";
-                    echo "Periodo: " . $row['periodo'] . "\n";
-                    echo "Nota Final: " . $row['nota'] . "\n";
-                    echo "-------------------------\n";
+                    echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
+                    echo "RUN: " . $row['run'] . "<br>";
+                    echo "Curso: " . $row['curso'] . "<br>";
+                    echo "Seccion: " . $row['seccion'] . "<br>";
+                    echo "Periodo: " . $row['periodo'] . "<br>";
+                    echo "Nota Final: " . $row['nota'] . "<br>";
+                    echo "-------------------------<br>";
                 }
             }
         }

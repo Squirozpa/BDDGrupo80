@@ -1,13 +1,3 @@
-CREATE TABLE acta (
-    numero_alumno VARCHAR(20),
-    run VARCHAR(20),
-    sigla VARCHAR(20),
-    seccion VARCHAR(20),
-    periodo VARCHAR(20),
-    nota VARCHAR(20),
-    calificacion VARCHAR(20)
-);
-
 CREATE OR REPLACE FUNCTION crear_acta()
 RETURNS VOID AS $$
 BEGIN
