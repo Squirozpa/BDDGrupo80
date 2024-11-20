@@ -12,7 +12,7 @@ $query_profes = "SELECT run, nombre, apellido1, apellido2 FROM profesores";
 $result_profes = pg_query($db_profes, $query_profes);
 
 if (!$result_profes) {
-    echo "Error fetching data from profesores: " . pg_last_error($db_profes) . "\n";
+    echo "Error fetching data from profesores: " . pg_last_error($db_profes) . "<br>";
     exit;
 }
 
@@ -37,9 +37,9 @@ while ($row = pg_fetch_assoc($result_profes)) {
             $result_update = pg_query($db, $query_update);
 
             if ($result_update) {
-                echo "Registro actualizado para RUN: $run\n";
+                echo "Registro actualizado para RUN: $run" . "<br>";
             } else {
-                echo "Error updating data for RUN: $run - " . pg_last_error($db) . "\n";
+                echo "Error updating data for RUN: $run - " . pg_last_error($db) . "<br>";
             }
         }
     } else {
@@ -48,9 +48,9 @@ while ($row = pg_fetch_assoc($result_profes)) {
         $result_insert = pg_query($db, $query_insert);
 
         if ($result_insert) {
-            echo "Registro insertado para RUN: $run\n";
+            echo "Registro insertado para RUN: $run" . "<br>";
         } else {
-            echo "Error inserting data for RUN: $run - " . pg_last_error($db) . "\n";
+            echo "Error inserting data for RUN: $run - " . pg_last_error($db) . "<br>";
         }
     }
 }
