@@ -15,7 +15,7 @@ BEGIN
                 echo "Curso: " . $row['curso'] . "<br>";
                 echo "Seccion: " . $row['seccion'] . "<br>";
                 echo "Periodo: " . $row['periodo'] . "<br>";
-                echo "Nota Final: " . $nota . "<br>";
+                echo "Nota Final: " . $row['nota'] . "<br>";
                 echo "-------------------------<br>";
             
         }
