@@ -70,12 +70,6 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', '$nota_final')";
         $result = pg_query($db, $insert_query);
 
-        $check_query = "SELECT * FROM acta WHERE numero_alumno = '$numero_alumno'";
-        $check_res = pg_query($db, $check_query);
-        $check_row = pg_fetch_assoc($check_res);
-        $check = $check_row['nota'];
-        echo $check . "\n";
-
 
 
         if (!$result) {
@@ -108,12 +102,18 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
                 echo "Error fetching data from acta_notas: " . pg_last_error($db) . "\n";
             } else {
                 while ($row = pg_fetch_assoc($query_view)) {
+                    $check_query = "SELECT * FROM acta WHERE numero_alumno = '" . $row['numero_alumno'] . "'";
+                    $check_res = pg_query($db, $check_query);
+                    $check_row = pg_fetch_assoc($check_res);
+                    $nota = $check_row['nota'];
+                    echo $check . "\n";
+
                     echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
                     echo "RUN: " . $row['run'] . "<br>";
                     echo "Curso: " . $row['curso'] . "<br>";
                     echo "Seccion: " . $row['seccion'] . "<br>";
                     echo "Periodo: " . $row['periodo'] . "<br>";
-                    echo "Nota Final: " . $row['nota'] . "<br>";
+                    echo "Nota Final: " . $nota . "<br>";
                     echo "Calificación: " . $row['calificacion'] . "<br>";
                     echo "-------------------------<br>";
                 }
