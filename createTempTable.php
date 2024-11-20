@@ -74,7 +74,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         $check_res = pg_query($db, $check_query);
         $check_row = pg_fetch_assoc($check_res);
         $check = $check_row['nota'];
-        echo $check;
+        echo $check . "\n";
 
 
 
