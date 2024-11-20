@@ -4,15 +4,13 @@ BEGIN
 
     CREATE OR REPLACE VIEW acta_notas AS
     SELECT 
-        a.numero_alumno,
-        a.run,
-        a.sigla AS curso,
-        a.seccion,
-        a.periodo,
-        a.nota,
-        a.calificacion
-    FROM acta a
-
-    PERFORM * FROM acta_notas;
+        numero_alumno,
+        run,
+        sigla AS curso,
+        seccion,
+        periodo,
+        nota,
+        calificacion
+    FROM acta
 END;
 $$ LANGUAGE plpgsql;
