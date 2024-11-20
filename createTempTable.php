@@ -105,7 +105,6 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
                     echo "Curso: " . $row['curso'] . "\n";
                     echo "Seccion: " . $row['seccion'] . "\n";
                     echo "Periodo: " . $row['periodo'] . "\n";
-                    echo "Nombre Estudiante: " . $row['nombre_estudiante'] . "\n";
                     echo "Nota Final: " . $row['nota'] . "\n";
                     echo "-------------------------\n";
                 }

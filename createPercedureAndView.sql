@@ -4,7 +4,7 @@ CREATE TABLE acta (
     sigla VARCHAR(20),
     seccion VARCHAR(20),
     periodo VARCHAR(20),
-    nota FLOAT,
+    nota VARCHAR(20),
     calificacion VARCHAR(20)
 );
 
@@ -19,11 +19,9 @@ BEGIN
         a.sigla AS curso,
         a.seccion,
         a.periodo,
-        e.primer_nombre AS nombre_estudiante,
         a.nota,
         a.calificacion
     FROM acta a
-    LEFT JOIN estudiantes e ON a.numero_alumno = e.numero_alumno;
 
     PERFORM * FROM acta_notas;
 END;
