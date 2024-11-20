@@ -67,7 +67,7 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         }
 
         // Insertar en la tabla temporal
-        $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', $nota_final)";
+        $insert_query = "INSERT INTO acta (numero_alumno, run, sigla, seccion, periodo, nota) VALUES ('$numero_alumno', '$run', '$sigla','$seccion', '$periodo', '$nota_final')";
         $result = pg_query($db, $insert_query);
 
         if (!$result) {
