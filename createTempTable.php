@@ -90,34 +90,6 @@ if (($handle = fopen($archivo, "r")) !== FALSE) {
         // Mostrar el contenido de la tabla temporal
         $query = pg_query($db, "SELECT crear_acta();");
 
-        if (!$query) {
-            echo "Error creating view: " . pg_last_error($db) . "\n";
-        } else {
-            // Mostrar el contenido de la vista
-            $query_view = pg_query($db, "SELECT * FROM acta_notas");
-
-            if (!$query_view) {
-                echo "Error fetching data from acta_notas: " . pg_last_error($db) . "\n";
-            } else {
-                while ($row = pg_fetch_assoc($query_view)) {
-                    $nota_query = "SELECT nota FROM acta WHERE run = '$run' AND sigla = '$sigla'";
-                    $nota = pg_query($db, $nota_query);
-                    if (!$nota) {
-                        echo "Error fetching data from acta: " . pg_last_error($db) . "\n";
-                    } else {
-                        $nota = pg_fetch_assoc($nota);
-                        $nota = $nota['nota'];
-                        echo "Numero Alumno: " . $row['numero_alumno'] . "<br>";
-                        echo "RUN: " . $row['run'] . "<br>";
-                        echo "Curso: " . $row['curso'] . "<br>";
-                        echo "Seccion: " . $row['seccion'] . "<br>";
-                        echo "Periodo: " . $row['periodo'] . "<br>";
-                        echo "Nota Final: " . $nota . "<br>";
-                        echo "-------------------------<br>";
-                    }
-                }
-            }
-        }
     }
 } else {
     echo "Error: Unable to open file $archivo.\n";
